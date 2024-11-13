@@ -74,6 +74,3 @@
             }
         });
     });
-
-    // Optionally, toggle sidebar via a button (like a hamburger menu for mobile)
-    document.querySelector('.sidebar-toggle-btn').addEventListener('click', toggleSidebar);

@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 case 'delete':
                     $stmt = $pdo->prepare("DELETE FROM offenses WHERE id = ?");
                     $stmt->execute([$id]);
-                    $_SESSION['message_error'] = "Offense deleted successfully!";
+                    $_SESSION['message_success'] = "Offense deleted successfully!";
                     header("Location: offenses_list.php");
                     exit();
                     break;
@@ -67,7 +67,6 @@ $offenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="icon" href="../logo/RegLogo.png" id="favicon">
     <link rel="stylesheet" href="../css/Index.css">
     <link rel="stylesheet" href="../css/OffensesL.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
 </head>

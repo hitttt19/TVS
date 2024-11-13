@@ -8,44 +8,68 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-// Handle CRUD operations
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
-    $service_provider = trim($_POST['service_provider']);
-    $mobile_no = trim($_POST['mobile_no']);
-    $service_type = trim($_POST['service_type']);
+    
+    // Get form data
+    $service_provider = isset($_POST['service_provider']) ? trim($_POST['service_provider']) : '';
+    $mobile_no = isset($_POST['mobile_no']) ? trim($_POST['mobile_no']) : '';
+    $service_type = isset($_POST['service_type']) ? trim($_POST['service_type']) : '';
     $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
 
-    // Validate mobile number
-    if (!preg_match('/^\d{11}$/', $mobile_no)) {
-        $error = "Mobile number must be exactly 11 digits.";
-    } else {
-        try {
-            switch ($action) {
-                case 'create':
-                    $stmt = $pdo->prepare("INSERT INTO contacts (service_provider, mobile_no, service_type) VALUES (?, ?, ?)");
-                    $stmt->execute([$service_provider, $mobile_no, $service_type]);
-                    break;
+    // Only validate mobile number if the action is not delete
+    if ($action !== 'delete') {
+        // Check if mobile number is valid (exactly 11 digits)
+        if (!preg_match('/^\d{11}$/', $mobile_no)) {
+            $_SESSION['message_error'] = "Mobile number must be exactly 11 digits.";
+        }
+        // Check for duplicate mobile number
+        else {
+            $stmt = $pdo->prepare("SELECT COUNT(*) FROM contacts WHERE mobile_no = ?");
+            $stmt->execute([$mobile_no]);
+            $existing_count = $stmt->fetchColumn();
 
-                case 'update':
-                    $stmt = $pdo->prepare("UPDATE contacts SET service_provider = ?, mobile_no = ?, service_type = ? WHERE id = ?");
-                    $stmt->execute([$service_provider, $mobile_no, $service_type, $id]);
-                    break;
+            if ($existing_count > 0) {
+                $_SESSION['message_error'] = "This mobile number is already registered.";
+            } else {
+                // Proceed with inserting or updating the contact
+                try {
+                    switch ($action) {
+                        case 'create':
+                            $stmt = $pdo->prepare("INSERT INTO contacts (service_provider, mobile_no, service_type) VALUES (?, ?, ?)");
+                            $stmt->execute([$service_provider, $mobile_no, $service_type]);
+                            $_SESSION['message_success'] = "Contact created successfully!";
+                            break;
 
-                case 'delete':
-                    $stmt = $pdo->prepare("DELETE FROM contacts WHERE id = ?");
-                    $stmt->execute([$id]);
-                    break;
+                        case 'update':
+                            $stmt = $pdo->prepare("UPDATE contacts SET service_provider = ?, mobile_no = ?, service_type = ? WHERE id = ?");
+                            $stmt->execute([$service_provider, $mobile_no, $service_type, $id]);
+                            $_SESSION['message_success'] = "Contact updated successfully!";
+                            break;
+                    }
+                    // Redirect to avoid form resubmission
+                    header("Location: contact.php");
+                    exit();
+                } catch (PDOException $e) {
+                    $error = "Error: " . htmlspecialchars($e->getMessage());
+                }
             }
-            // Redirect to avoid form resubmission
+        }
+    }
+    
+    // Delete action doesn't require mobile number check
+    if ($action == 'delete') {
+        try {
+            $stmt = $pdo->prepare("DELETE FROM contacts WHERE id = ?");
+            $stmt->execute([$id]);
+            $_SESSION['message_success'] = "Contact deleted successfully!";
             header("Location: contact.php");
             exit();
         } catch (PDOException $e) {
-            $error = "Error: " . htmlspecialchars($e->getMessage());
+            $_SESSION['message_error'] = "Error deleting contact: " . htmlspecialchars($e->getMessage());
         }
     }
 }
-
 
 // Search functionality
 $search = isset($_GET['search']) ? '%' . trim($_GET['search']) . '%' : '%';
@@ -63,6 +87,8 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="icon" href="../logo/RegLogo.png" id="favicon">
     <link rel="stylesheet" href="../css/Index.css">
     <link rel="stylesheet" href="../css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -165,16 +191,22 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo htmlspecialchars($contact['mobile_no']); ?></td>
                                     <td><?php echo htmlspecialchars($contact['service_type']); ?></td>
                                     <td>
-                                        <button class="con-edit-btn" onclick="editContact(<?php echo htmlspecialchars($contact['id']); ?>, '<?php echo htmlspecialchars($contact['service_provider']); ?>', '<?php echo htmlspecialchars($contact['mobile_no']); ?>', '<?php echo htmlspecialchars($contact['service_type']); ?>')">
-                                            <img src="../icons/edit.png" alt="Edit" />
-                                        </button>
-                                        <form action="contact.php" method="post" style="display:inline;">
+                                    <button class="con-edit-btn" onclick="editContact(<?php echo htmlspecialchars($contact['id']); ?>, '<?php echo htmlspecialchars($contact['service_provider']); ?>', '<?php echo htmlspecialchars($contact['mobile_no']); ?>', '<?php echo htmlspecialchars($contact['service_type']); ?>')">
+                                    <img src="../icons/edit.png" alt="Edit" />
+                                    </button>
+                                    <form action="contact.php" method="post" style="display:inline;">
                                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($contact['id']); ?>">
                                             <button type="submit" name="action" value="delete" class="con-delete-btn">
                                                 <img src="../icons/delete.png" alt="Delete" />
                                             </button>
                                         </form>
-                                    </td>
+                                <script>
+                                function confirmDelete() {
+                                return confirm("Are you sure you want to delete this contact?");
+                               }
+                              </script>
+                              </td>
+                                </td>
                                 </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -281,6 +313,27 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
             });
         });
+         // Display Toastify notifications
+<?php if (isset($_SESSION['message_success'])): ?>
+    Toastify({
+        text: "<?php echo $_SESSION['message_success']; ?>",
+        duration: 3000,
+        backgroundColor: "green",
+        close: true
+    }).showToast();
+    <?php unset($_SESSION['message_success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['message_error'])): ?>
+    Toastify({
+        text: "<?php echo $_SESSION['message_error']; ?>",
+        duration: 3000,
+        backgroundColor: "red",
+        close: true
+    }).showToast();
+    <?php unset($_SESSION['message_error']); ?>
+<?php endif; ?>
+
     </script>
 
 </body>

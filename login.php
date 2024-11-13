@@ -1,6 +1,7 @@
 <?php
 require 'db_connection.php'; // Include your database connection file
 session_start(); // Start session at the beginning
+// Redirect to landing page if session is not set (not logged in)
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if both 'login' and 'password' fields are set

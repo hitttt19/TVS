@@ -7,7 +7,6 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: ../landingpage.php");
     exit();
 }
-
 // Handle CRUD operations
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
@@ -34,7 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 // Hash the password
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 $stmt = $pdo->prepare("INSERT INTO drivers (license_id, license_type, firstname, middlename, lastname, gender, date_of_birth, civil_status, present_address, permanent_address, nationality, contact_number, username, email, password, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute([$license_id, $license_type, $firstname, $middlename, $lastname, $gender, $date_of_birth, $civil_status, $present_address, $permanent_address, $nationality, $contact_number, $username, $email, $hashedPassword, null]); // Assuming photo is null for new records
+                $stmt->execute([$license_id, $license_type, $firstname, $middlename, $lastname, $gender, $date_of_birth, $civil_status, $present_address, $permanent_address, $nationality, $contact_number, $username, $email, $hashedPassword, null]);
+                $_SESSION['toast_message'] = "Driver created successfully!";
+                $_SESSION['toast_type'] = 'success'; // success or error
                 break;
 
             case 'update':
@@ -54,11 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 
                 $stmt = $pdo->prepare($query);
                 $stmt->execute($params);
+                $_SESSION['toast_message'] = "Driver details updated successfully!";
+                $_SESSION['toast_type'] = 'success';
                 break;
 
             case 'delete':
                 $stmt = $pdo->prepare("DELETE FROM drivers WHERE id = ?");
                 $stmt->execute([$id]);
+                $_SESSION['toast_message'] = "Driver deleted successfully!";
+                $_SESSION['toast_type'] = 'success'; 
                 break;
         }
         // Redirect to avoid form resubmission
@@ -75,7 +80,6 @@ $stmt = $pdo->prepare("SELECT * FROM drivers WHERE license_id LIKE ? OR firstnam
 $stmt->execute([$search, $search, $search]);
 $drivers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
 // Handle view request
 if (isset($_GET['view_id'])) {
     $view_id = (int)$_GET['view_id'];
@@ -83,8 +87,9 @@ if (isset($_GET['view_id'])) {
     $stmt->execute([$view_id]);
     $driverDetails = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,6 +100,8 @@ if (isset($_GET['view_id'])) {
     <link rel="icon" href="../logo/RegLogo.png" id="favicon">
     <link rel="stylesheet" href="../css/Index.css">
     <link rel="stylesheet" href="../css/DriverL.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -138,6 +145,7 @@ if (isset($_GET['view_id'])) {
             </ul>
         </nav>
 
+        
         <!-- Overlay for mobile sidebar -->
         <div class="overlay" onclick="toggleSidebar()"></div>
 
@@ -202,12 +210,18 @@ if (isset($_GET['view_id'])) {
                                         <button class="edit-btn" onclick="editDriver(<?php echo htmlspecialchars($driver['id']); ?>, '<?php echo htmlspecialchars($driver['license_id']); ?>', '<?php echo htmlspecialchars($driver['license_type']); ?>', '<?php echo htmlspecialchars($driver['firstname']); ?>', '<?php echo htmlspecialchars($driver['middlename']); ?>', '<?php echo htmlspecialchars($driver['lastname']); ?>', '<?php echo htmlspecialchars($driver['gender']); ?>', '<?php echo htmlspecialchars($driver['date_of_birth']); ?>', '<?php echo htmlspecialchars($driver['present_address']); ?>', '<?php echo htmlspecialchars($driver['permanent_address']); ?>', '<?php echo htmlspecialchars($driver['nationality']); ?>', '<?php echo htmlspecialchars($driver['contact_number']); ?>', '<?php echo htmlspecialchars($driver['username']); ?>', '<?php echo htmlspecialchars($driver['email']); ?>')">
                                             <img src="../icons/edit.png" alt="Edit" />
                                         </button>
-                                        <form action="drivers_list.php" method="post" style="display:inline;">
-                                            <input type="hidden" name="id" value="<?php echo htmlspecialchars($driver['id']); ?>">
-                                            <button type="submit" name="action" value="delete" class="delete-btn">
-                                                <img src="../icons/delete.png" alt="Delete" />
-                                            </button>
-                                        </form>
+                                        <form action="drivers_list.php" method="post" style="display:inline;" onsubmit="return confirmDelete()">
+                                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($driver['id']); ?>">
+                                       <button type="submit" name="action" value="delete" class="delete-btn">
+                                       <img src="../icons/delete.png" alt="Delete" />
+                                       </button>
+                                    </form>
+
+                                   <script>
+                                   function confirmDelete() {
+                                   return confirm("Are you sure you want to delete this driver?");
+                                   }
+                                  </script>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -360,124 +374,27 @@ if (isset($_GET['view_id'])) {
         <?php endif; ?>
     </div>
 </div>
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    <?php if (isset($_SESSION['toast_message'])): ?>
+        // Check for toast message and type from session
+        Toastify({
+            text: "<?php echo $_SESSION['toast_message']; ?>",
+            duration: 3000,
+            backgroundColor: "<?php echo ($_SESSION['toast_type'] == 'success') ? 'green' : 'red'; ?>", // Green for success, red for error
+            close: true,
+            gravity: "top", // Top notification
+            position: "right", // Right side of the page
+        }).showToast();
 
+        // Unset the session message after displaying it
+        <?php unset($_SESSION['toast_message']); ?>
+        <?php unset($_SESSION['toast_type']); ?>
+    <?php endif; ?>
+});
 
-
+</script>
     <script src="../js/script.js"></script>
-    <script>
-        function showDriverForm() {
-            document.getElementById('formTitle').innerText = 'Create New Driver';
-            document.getElementById('driverId').value = '';
-            document.getElementById('license_id').value = '';
-            document.getElementById('license_type').value = '';
-            document.getElementById('firstname').value = '';
-            document.getElementById('middlename').value = '';
-            document.getElementById('lastname').value = '';
-            document.getElementById('gender').value = '';
-            document.getElementById('date_of_birth').value = '';
-            document.getElementById('present_address').value = '';
-            document.getElementById('permanent_address').value = '';
-            document.getElementById('nationality').value = '';
-            document.getElementById('contact_number').value = '';
-            document.getElementById('username').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('formAction').value = 'create';
-            document.getElementById('driverFormModal').style.display = 'block';
-        }
-
-        function editDriver(id, license_id, license_type, firstname, middlename, lastname, gender, date_of_birth, present_address, permanent_address, nationality, contact_number, username, email) {
-            document.getElementById('formTitle').innerText = 'Edit Driver';
-            document.getElementById('driverId').value = id;
-            document.getElementById('license_id').value = license_id;
-            document.getElementById('license_type').value = license_type;
-            document.getElementById('firstname').value = firstname;
-            document.getElementById('middlename').value = middlename;
-            document.getElementById('lastname').value = lastname;
-            document.getElementById('gender').value = gender;
-            document.getElementById('date_of_birth').value = date_of_birth;
-            document.getElementById('present_address').value = present_address;
-            document.getElementById('permanent_address').value = permanent_address;
-            document.getElementById('nationality').value = nationality;
-            document.getElementById('contact_number').value = contact_number;
-            document.getElementById('username').value = username;
-            document.getElementById('email').value = email;
-            document.getElementById('formAction').value = 'update';
-            document.getElementById('driverFormModal').style.display = 'block';
-        }
-
-        document.getElementById('closeDriverForm').onclick = function() {
-            document.getElementById('driverFormModal').style.display = 'none';
-        }
-
-        function viewDriver(id) {
-        // Redirect to the current page with view_id parameter
-        window.location.href = 'drivers_list.php?view_id=' + id;
-        }
-
-        document.getElementById('closeViewDriver').onclick = function() {
-            document.getElementById('viewDriverModal').style.display = 'none';
-        }
-
-        // Check if the view_id parameter is present and show the modal
-        window.onload = function() {
-            var urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('view_id')) {
-                document.getElementById('viewDriverModal').style.display = 'block';
-            }
-        }
-    </script>
-
-    <script>
-        function updateTable(drivers) {
-            const tbody = document.querySelector('.table tbody');
-            tbody.innerHTML = ''; // Clear existing rows
-
-            drivers.forEach(driver => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${htmlspecialchars(driver.license_id)}</td>
-                    <td>${htmlspecialchars(driver.firstname + " " + driver.middlename + " " + driver.lastname)}</td>
-                    <td>${htmlspecialchars(driver.license_type)}</td>
-                    <td>
-                        <button class="view-btn" onclick="viewDriver(${driver.id})"><img src="../icons/view.png" alt="View" /></button>
-                        <button class="edit-btn" onclick="editDriver(${driver.id}, '${driver.license_id}', '${driver.license_type}', '${driver.firstname}', '${driver.middlename}', '${driver.lastname}', '${driver.gender}', '${driver.date_of_birth}', '${driver.present_address}', '${driver.permanent_address}', '${driver.nationality}', '${driver.contact_number}', '${driver.username}', '${driver.email}')"><img src="../icons/edit.png" alt="Edit" /></button>
-                        <form action="drivers_list.php" method="post" style="display:inline;">
-                            <input type="hidden" name="id" value="${driver.id}">
-                            <button type="submit" name="action" value="delete" class="delete-btn"><img src="../icons/delete.png" alt="Delete" /></button>
-                        </form>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-    </script>
-    <script>
-        // Live search functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search');
-            const driverTable = document.getElementById('driverTable');
-
-            searchInput.addEventListener('keyup', function() {
-                const filter = searchInput.value.toLowerCase();
-                const rows = driverTable.getElementsByTagName('tr');
-
-                for (let i = 0; i < rows.length; i++) {
-                    const cells = rows[i].getElementsByTagName('td');
-                    let match = false;
-
-                    for (let j = 0; j < cells.length; j++) {
-                        if (cells[j]) {
-                            if (cells[j].textContent.toLowerCase().includes(filter)) {
-                                match = true;
-                                break;
-                            }
-                        }
-                    }
-                    rows[i].style.display = match ? '' : 'none';
-                }
-            });
-        });
-    </script>
-
+    <script src="../js/driverlistmodals.js"></script>
 </body>
 </html>

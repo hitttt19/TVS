@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 }
                 $stmt = $pdo->prepare("INSERT INTO announcements (title, content) VALUES (?, ?)");
                 $stmt->execute([$title, $content]);
+                $_SESSION['message_success'] = "Announcement posted successfully!";
                 break;
 
             case 'update':
@@ -31,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 }
                 $stmt = $pdo->prepare("UPDATE announcements SET title = ?, content = ?, updated_at = NOW() WHERE id = ?");
                 $stmt->execute([$title, $content, $id]);
+                $_SESSION['message_success'] = "Announcement updated successfully!";
                 break;
 
             case 'delete':
@@ -39,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 }
                 $stmt = $pdo->prepare("DELETE FROM announcements WHERE id = ?");
                 $stmt->execute([$id]);
+                $_SESSION['message_success'] = "Announcement deleted successfully!";
                 break;
         }
         // Redirect to avoid form resubmission
@@ -64,6 +67,8 @@ $announcements = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="icon" href="../logo/RegLogo.png" id="favicon">
     <link rel="stylesheet" href="../css/Index.css">
     <link rel="stylesheet" href="../css/announcement.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -152,7 +157,7 @@ $announcements = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <button type="button" class="edit-btn" onclick="editAnnouncement(<?php echo htmlspecialchars($announcement['id']); ?>, '<?php echo htmlspecialchars(addslashes($announcement['title'])); ?>', '<?php echo htmlspecialchars(addslashes($announcement['content'])); ?>')">
                                     <img src="../icons/edit.png" alt="Edit">
                                 </button>
-                                <form action="announcement.php" method="post" style="display:inline;">
+                                <form action="announcement.php" method="post" style="display:inline;"onsubmit="return confirmDelete()">
                                     <input type="hidden" name="id" value="<?php echo htmlspecialchars($announcement['id']); ?>">
                                     <input type="hidden" name="announcement-title" value="<?php echo htmlspecialchars($announcement['title']); ?>">
                                     <input type="hidden" name="announcement-content" value="<?php echo htmlspecialchars($announcement['content']); ?>">
@@ -160,6 +165,11 @@ $announcements = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <img src="../icons/delete.png" alt="Delete">
                                     </button>
                                 </form>
+                                <script>
+                                    function confirmDelete() {
+                                    return confirm("Are you sure you want to delete this announcement?");
+                                    }
+                            </script>
                             </div>
                             <p><?php echo htmlspecialchars($announcement['content']); ?></p>
                             <small><?php echo htmlspecialchars(date('F j, Y, g:i a', strtotime($announcement['created_at']))); ?></small>
@@ -178,6 +188,26 @@ $announcements = $stmt->fetchAll(PDO::FETCH_ASSOC);
             document.getElementById('announcement-content').value = content;
             document.getElementById('formAction').value = 'update';
         }
+          // Display Toastify notifications
+<?php if (isset($_SESSION['message_success'])): ?>
+    Toastify({
+        text: "<?php echo $_SESSION['message_success']; ?>",
+        duration: 3000,
+        backgroundColor: "green",
+        close: true
+    }).showToast();
+    <?php unset($_SESSION['message_success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['message_error'])): ?>
+    Toastify({
+        text: "<?php echo $_SESSION['message_error']; ?>",
+        duration: 3000,
+        backgroundColor: "red",
+        close: true
+    }).showToast();
+    <?php unset($_SESSION['message_error']); ?>
+<?php endif; ?>
     </script>
 </body>
 </html>

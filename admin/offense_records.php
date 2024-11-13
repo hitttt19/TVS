@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     // Validate fields for create and update actions only
     if (($action === 'create' || $action === 'update') && 
         (empty($datetime) || empty($license_id) || empty($traffic_enforcer) || empty($status) || empty($offense_name) || empty($offense_rate))) {
-        $error = "All fields are required.";
+        $_SESSION['message_error'] = "All fields are required.";
     } else {
         try {
             if ($action === 'create' || $action === 'update') {
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
                 // Check if enforcer_id was found
                 if (!$enforcer_id) {
-                    $error = "Selected enforcer not found.";
+                    $_SESSION['message_error'] = "Selected enforcer not found.";
                 } else {
                     // Proceed with create or update action
                     if ($action === 'create') {
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                                               VALUES (?, ?, ?, ?, ?, ?, ?)");
                         $stmt->execute([$datetime, $ticket_no, $license_id, $offense_name, $offense_rate, $status, $enforcer_id]);
 
-                        // Redirect after successful insertion
+                        $_SESSION['message_success'] = "Offense record created successfully!";
                         header("Location: offense_records.php");
                         exit();
                     } elseif ($action === 'update') {
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                         $stmt = $pdo->prepare("UPDATE offense_records SET datetime = ?, license_id = ?, offense_name = ?, offense_rate = ?, status = ?, enforcer_id = ? WHERE id = ?");
                         $stmt->execute([$datetime, $license_id, $offense_name, $offense_rate, $status, $enforcer_id, $id]);
 
-                        // Redirect after successful update
+                        $_SESSION['message_success'] = "Offense record updated successfully!";
                         header("Location: offense_records.php");
                         exit();
                     }
@@ -71,28 +71,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             } elseif ($action === 'delete') {
                 // Delete the offense record by ID
                 if (empty($id)) {
-                    $error = "Offense ID is required to delete.";
+                    $_SESSION['message_error'] = "Offense ID is required to delete.";
                 } else {
-                    // Start a transaction to ensure consistency
                     $pdo->beginTransaction();
-
-                    // Check if the offense record exists
+            
                     $stmt = $pdo->prepare("SELECT enforcer_id FROM offense_records WHERE id = ?");
                     $stmt->execute([$id]);
                     $offense_record = $stmt->fetch();
-
+            
                     if (!$offense_record) {
-                        // If offense record doesn't exist, throw an error
-                        $error = "Offense record not found.";
+                        $_SESSION['message_error'] = "Offense record not found.";
                     } else {
-                        // If the offense record exists, delete it
                         $stmt = $pdo->prepare("DELETE FROM offense_records WHERE id = ?");
                         $stmt->execute([$id]);
-
-                        // Commit the transaction
+            
                         $pdo->commit();
-
-                        // Redirect to the offense records page
+            
+                        // Set a red delete success message
+                        $_SESSION['message_delete'] = "Offense record deleted successfully!";
                         header("Location: offense_records.php");
                         exit();
                     }
@@ -424,38 +420,43 @@ $enforcers = $enforcers_stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
-            <!-- Toast Notifications -->
-    <?php if (isset($_SESSION['message_success'])): ?>
+            <?php if (isset($_SESSION['message_success'])): ?>
     <script>
         Toastify({
-            text: "<?php echo addslashes(htmlspecialchars($_SESSION['message_success'])); ?>",
-            duration: 2500,
-            close: true,
-            gravity: "top",
-            position: 'right',
-            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-            stopOnFocus: true,
-            className: "toastify-enter toastify-glass"
+            text: "<?php echo $_SESSION['message_success']; ?>",
+            duration: 3000,
+            backgroundColor: "green",
+            close: true
         }).showToast();
     </script>
     <?php unset($_SESSION['message_success']); ?>
-    <?php endif; ?>
+<?php endif; ?>
 
-    <?php if (isset($_SESSION['message_error'])): ?>
+<?php if (isset($_SESSION['message_delete'])): ?>
     <script>
         Toastify({
-            text: "<?php echo addslashes(htmlspecialchars($_SESSION['message_error'])); ?>",
-            duration: 2500,
-            close: true,
-            gravity: "top",
-            position: 'right',
-            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
-            stopOnFocus: true,
-            className: "toastify-enter toastify-glass"
+            text: "<?php echo $_SESSION['message_delete']; ?>",
+            duration: 3000,
+            backgroundColor: "green",
+            close: true
+        }).showToast();
+    </script>
+    <?php unset($_SESSION['message_delete']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['message_error'])): ?>
+    <script>
+        Toastify({
+            text: "<?php echo $_SESSION['message_error']; ?>",
+            duration: 3000,
+            backgroundColor: "red",
+            close: true
         }).showToast();
     </script>
     <?php unset($_SESSION['message_error']); ?>
-    <?php endif; ?>
+<?php endif; ?>
+
+
     <script src="../js/script.js"></script>
     <script src="../js/offenseRecords.js"></script>
 
