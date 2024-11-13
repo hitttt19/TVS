@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             case 'create':
                 $stmt = $pdo->prepare("INSERT INTO offenses (date_created, name, description, rate) VALUES (?, ?, ?, ?)");
                 $stmt->execute([$datetime, $name, $description, $rate]);
+                $_SESSION['message_success'] = "Offense created successfully!";
                 header("Location: offenses_list.php");
                 exit();
                 break;
@@ -29,19 +30,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             case 'update':
                 $stmt = $pdo->prepare("UPDATE offenses SET name = ?, description = ?, rate = ? WHERE id = ?");
                 $stmt->execute([$name, $description, $rate, $id]);
+                $_SESSION['message_success'] = "Offense updated successfully!";
                 header("Location: offenses_list.php");
                 exit();
                 break;
 
-            case 'delete':
-                $stmt = $pdo->prepare("DELETE FROM offenses WHERE id = ?");
-                $stmt->execute([$id]);
-                header("Location: offenses_list.php");
-                exit();
-                break;
+                case 'delete':
+                    $stmt = $pdo->prepare("DELETE FROM offenses WHERE id = ?");
+                    $stmt->execute([$id]);
+                    $_SESSION['message_error'] = "Offense deleted successfully!";
+                    header("Location: offenses_list.php");
+                    exit();
+                    break;
         }
     } catch (PDOException $e) {
         $error = "Error: " . htmlspecialchars($e->getMessage());
+        $_SESSION['message_error'] = $error;
+        header("Location: offenses_list.php");
+        exit();
     }
 }
 
@@ -51,6 +57,7 @@ $stmt = $pdo->prepare("SELECT * FROM offenses WHERE name LIKE ? OR description L
 $stmt->execute([$search, $search]);
 $offenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,6 +67,9 @@ $offenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="icon" href="../logo/RegLogo.png" id="favicon">
     <link rel="stylesheet" href="../css/Index.css">
     <link rel="stylesheet" href="../css/OffensesL.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -257,6 +267,28 @@ $offenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
             });
         });
+         // Display Toastify notifications
+<?php if (isset($_SESSION['message_success'])): ?>
+    Toastify({
+        text: "<?php echo $_SESSION['message_success']; ?>",
+        duration: 3000,
+        backgroundColor: "green",
+        close: true
+    }).showToast();
+    <?php unset($_SESSION['message_success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['message_error'])): ?>
+    Toastify({
+        text: "<?php echo $_SESSION['message_error']; ?>",
+        duration: 3000,
+        backgroundColor: "red",
+        close: true
+    }).showToast();
+    <?php unset($_SESSION['message_error']); ?>
+<?php endif; ?>
+
     </script>
+    
 </body>
 </html>

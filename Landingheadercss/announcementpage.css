@@ -23,50 +23,77 @@ body.loaded {
 }
 
 header {
+    background-color: #0A3B31;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #004d40;
-    padding: 20px;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 10;
 }
 
-header .logo {
+/* Logo section styling */
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+.logo a {
+    text-decoration: none;
+    color: inherit;
     display: flex;
     align-items: center;
 }
 
-header .logo img {
-    max-width: 50px;
-    height: auto;
+.logo img {
+    height: 50px;
     margin-right: 10px;
 }
 
-header .logo .RDtxt {
-    font-size: 24px;
+.RDtxt {
+    color: #fff;
+    font-size: 20px;
     font-weight: bold;
-    color: white;
+    /* position: relative;
+    bottom: 15px; */
 }
+nav { 
+    display: flex;
+    align-items: center;
+}/* bago add */
 
 nav ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
+    align-items: center;
 }
 
 nav ul li {
-    margin-left: 20px;
+    margin: 0 15px;
+    transition: transform 0.3s ease; /* Smooth scaling on hover */
 }
 
+nav ul li:hover {
+    transform: scale(1.05); /* Slightly scale up the item on hover */
+}
+
+
 nav ul li a {
-    color: white;
+    color: #fff;
     text-decoration: none;
     font-size: 18px;
-    padding: 10px;
-    transition: background-color 0.3s ease;
+}
+
+nav ul li a i {
+    margin-right: 5px;
 }
 
 nav ul li a:hover {
     background-color: #06312a;
     border-radius: 5px;
+    
 }
 
 /* Main Content */

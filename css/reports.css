@@ -297,120 +297,6 @@ a:-webkit-any-link {
     margin-left: 60px;
 }
 
-/* Responsive Styles for Smaller Screens (Tablets and Phones) */
-@media (max-width: 1024px) {
-    /* For tablet or smaller devices, collapse sidebar by default */
-    .sidebar {
-        width: 60px;
-        transition: width 0.3s ease;
-    }
-
-    .sidebar.collapsed {
-        width: 60px; /* Ensure it stays compact */
-    }
-
-    .sidebar-header {
-        justify-content: center;
-    }
-
-    .logo {
-        width: 50px;
-        height: 50px;
-    }
-
-    .title {
-        display: none; /* Hide title in collapsed state */
-    }
-
-    .nav-item .text {
-        display: none; /* Hide text in collapsed state */
-    }
-    .nav-item .text:hover {
-        display: none; /* Hide text in collapsed state */
-    }
-
-    /* Adjust the main content to be full width when sidebar is collapsed */
-    .main-content {
-        margin-left: 0;
-    }
-
-    .sidebar.collapsed + .main-content {
-        margin-left: 0;
-    }
-
-    /* Show the sidebar on hover or click */
-    .sidebar.collapsed:hover {
-        width: 250px;
-    }
-
-    /* Icon spacing on smaller devices */
-    .nav-item .icon {
-        margin-right: 0;
-    }
-
-    /* Ensure that text appears on hover when the sidebar is collapsed */
-    .sidebar.collapsed:hover .nav-item .text {
-        display: inline-block;
-        opacity: 1;
-    }
-
-    .sidebar.collapsed:hover .nav-item .icon {
-        margin-right: 15px;
-    }
-
-    /* Add a toggle button to open/close sidebar on mobile */
-    .sidebar-toggle-btn {
-        display: block;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background-color: #004d40;
-        color: white;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        z-index: 3; /* Ensure it's above other content */
-    }
-
-    .sidebar.collapsed .sidebar-toggle-btn {
-        display: block;
-    }
-}
-
-/* Further adjustments for very small screens (mobile phones) */
-@media (max-width: 480px) {
-    .sidebar {
-        width: 60px; /* For very small screens, keep it even more compact */
-    }
-
-    .sidebar.collapsed {
-        width: 60px;
-    }
-
-    .logo {
-        width: 40px;
-        height: 40px; /* Smaller logo for tiny screens */
-    }
-
-    .nav-item .icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 0; /* Remove right margin */
-    }
-
-    /* Hide text completely for mobile */
-    .nav-item .text {
-        display: none;
-    }
-
-    .sidebar.collapsed .nav-item {
-        padding: 10px 10px; /* Adjust padding when collapsed */
-    }
-
-    .main-content {
-        margin-left: 0; /* Make main content take up full width on small screens */
-    }
-}
 
 .header {
     display: flex;
@@ -489,80 +375,6 @@ a:-webkit-any-link {
 
 .user-dropdown a:hover {
     background-color: #f0f0f0;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    /* Adjust header layout */
-    .header {
-        left: 0;
-        width: 100%;
-        padding: 0 10px; /* Reduce padding for smaller screens */
-    }
-    .header h2{
-        font-size: 1em;
-        margin-right: 60px;
-    }
-
-    .header.collapsed {
-        left: 0; /* For collapsed state, ensure it aligns properly */
-        width: 100%; /* Full width */
-    }
-
-    /* Stack user menu and hamburger on smaller screens */
-    .header-left {
-        flex-direction: row; /* Align elements horizontally */
-        justify-content: space-between; /* Space between hamburger and user menu */
-        width: 100%; /* Take full width */
-    }
-
-    .hamburger-menu {
-        font-size: 30px; /* Increase the hamburger size */
-        padding-right: 15px; /* Adjust padding */
-    }
-
-    .user-menu {
-        font-size: 1em;
-        margin-right: 40px;
-    }
-
-    /* Adjust user dropdown for mobile screens */
-    .user-dropdown {
-        right: 0; /* Align to the right of the header */
-        min-width: 150px; /* Ensure the dropdown isn't too wide */
-    }
-
-    /* Adjust the header height for mobile if necessary */
-    .header {
-        height: 50px; /* Reduce height for mobile */
-    }
-}
-
-/* For even smaller screens (e.g., mobile phones in portrait mode) */
-@media (max-width: 480px) {
-    /* Reduce font size of header title */
-    .header h2 {
-        font-size: 1em;
-    }
-
-    .hamburger-menu {
-        font-size: 28px; /* Further adjust hamburger size */
-    }
-
-    /* Adjust padding */
-    .header {
-        padding: 0 5px; /* Further reduce padding on small screens */
-    }
-
-    /* Stack user menu and hamburger menu vertically */
-    .header-left {
-        flex-direction: column; /* Stack vertically */
-        justify-content: center; /* Center vertically */
-    }
-
-    .user-dropdown {
-        min-width: 120px; /* Even smaller user dropdown */
-    }
 }
 
 
@@ -864,3 +676,145 @@ th {
     .Pending {
         color: #e53935;
     }
+
+    /* Responsive Design */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .title {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        flex: 1 1 100%;
+        margin-top: 20px;
+    }
+    
+    .card-icon-box {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .card-text {
+        font-size: 1.1em;
+    }
+    
+    .card-value {
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -60px;
+        width: 60px;
+        height: 100%;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+        left: 0;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .title, .nav-section .text {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .header {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        left: 0;
+        width: 100%;
+        padding: 0 10px; 
+    }
+
+    .header h2{
+        font-size: 1em;
+        margin-right: 60px;
+    }
+
+
+    .header.collapsed {
+        left: 0; 
+        width: 100%; 
+    }
+
+    .header-left {
+        flex-direction: row; 
+        justify-content: space-between; 
+        width: 100%; 
+    }
+
+    .hamburger-menu {
+        font-size: 30px;
+        padding-right: 15px; 
+    }
+
+    .user-menu {
+        font-size: 1em;
+        margin-right: 40px;
+    }
+
+    .user-dropdown {
+        right: 0; 
+        min-width: 150px; 
+    }
+
+    .header {
+        height: 50px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .header h2 {
+        font-size: 1em;
+    }
+
+    .hamburger-menu {
+        font-size: 28px; 
+    }
+
+    .header {
+        padding: 0 5px; 
+    }
+
+    .header-left {
+        flex-direction: column; 
+        justify-content: center; 
+    }
+
+    .user-dropdown {
+        min-width: 120px; 
+    }
+}

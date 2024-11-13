@@ -34,10 +34,13 @@ $announcements = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <header>
-        <div class="logo">
-            <img src="<?php echo htmlspecialchars($logoPath); ?>" alt="RD Logo">
+    <div class="logo">
+        <!-- Make logo clickable and redirect to landing page -->
+        <a href="landingpage.php">
+          <img src="logo/RegLogo.png" alt="Reguladrive Logo" class="logo">
             <span class="RDtxt"><?php echo htmlspecialchars($shortName); ?></span>
-        </div>
+        </a>
+    </div>
         <nav>
             <ul>
                 <li><a href="about-uspage.php"><i class="fas fa-info-circle"></i> About Us</a></li>

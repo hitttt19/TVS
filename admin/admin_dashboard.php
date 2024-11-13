@@ -165,5 +165,6 @@ try {
     <?php endif; ?>
 
     <script src="../js/script.js"></script>
+    <script src="../js/LandingMobileSidebar.js"></script>
 </body>
 </html>

@@ -36,29 +36,3 @@ document.addEventListener("DOMContentLoaded", () => {
     handleResize();
 });
 
-// js/registerModal.js
-document.getElementById('registerNavBtn').onclick = function() {
-    document.getElementById('registerModal').style.display = 'block';
-}
-
-document.getElementById('closeRegister').onclick = function() {
-    document.getElementById('registerModal').style.display = 'none';
-}
-
-// js/login.js
-document.getElementById('loginNavBtn').onclick = function() {
-    document.getElementById('loginModal').style.display = 'block';
-}
-
-document.getElementById('closeLogin').onclick = function() {
-    document.getElementById('loginModal').style.display = 'none';
-}
-
-// Close modal on outside click
-window.onclick = function(event) {
-    if (event.target === document.getElementById('registerModal') || event.target === document.getElementById('loginModal')) {
-        document.getElementById('registerModal').style.display = 'none';
-        document.getElementById('loginModal').style.display = 'none';
-    }
-}
-

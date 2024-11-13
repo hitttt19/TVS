@@ -42,6 +42,15 @@ if ($currentSettings) {
     <div class="hamburger" id="hamburger">
         <i class="fas fa-bars"></i>
     </div>
+    <!-- Sidebar (Initially hidden) -->
+    <div id="sidebar" class="sidebar">
+        <ul>
+            <li><a href="loginpage.php">Login</a></li>
+            <li><a href="registerpage.php">Register</a></li>
+            <li><a href="announcementpage.php">Announcements</a></li>
+            <li><a href="about-uspage.php">About Us</a></li>
+        </ul>
+    </div>
     <nav>
         <ul>
             <li class="announcement">
@@ -53,6 +62,7 @@ if ($currentSettings) {
         </ul>
     </nav>
 </header>
+
 <main style="background: url(image/trf.jpg) no-repeat center center fixed; background-size: cover; height: calc(100vh - 70px); display: flex; justify-content: center; align-items: center; position: relative;">
 <!-- Full-page Login Form inside the overlay -->
 <div class="overlay">
@@ -223,10 +233,6 @@ loginBtn.addEventListener('click', function(event) {
 });
 
   </script>
-  <script>// Toggle mobile menu
-    document.getElementById('hamburger').addEventListener('click', function() {
-        document.querySelector('nav').classList.toggle('active');
-    });
-</script>
+<script src="js/landingMobileSidebar.js"></script>
 </body>
 </html>

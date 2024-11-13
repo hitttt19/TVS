@@ -292,47 +292,6 @@ button:hover {
     transform: scale(1.05); /* Slightly scale up the announcement item */
 }
 
-/* Example CSS to be included or modified in your CSS file */
-.announcement-dropdown {
-    display: none;
-    margin-top: 10px;
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.announcement:hover .announcement-dropdown {
-    display: block;
-}
-
-.announcement-dropdown ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.announcement-dropdown li {
-    padding: 5px;
-    width: 200px;
-    border-bottom: 1px solid #eee;
-}
-
-.announcement-dropdown li:last-child {
-    border-bottom: none;
-}
-
-.read-more {
-    color: green; /* Set the text color to green */
-    text-decoration: none; /* Optional: remove underline */
-}
-
-.read-more:hover {
-    text-decoration: underline; /* Optional: underline on hover */
-}
 
 /* Animation for the Announcement Section */
 .announcement-section {

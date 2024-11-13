@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -19,9 +20,10 @@ a:-webkit-any-link {
     align-items: center;
     color: floralwhite;
     cursor: pointer;
-    text-decoration: none; 
+    text-decoration: none;
 }
 
+/* Sidebar */
 .sidebar {
     width: 250px;
     background-color: #004d40;
@@ -35,8 +37,9 @@ a:-webkit-any-link {
     height: 100%;
     overflow-y: auto;
 }
+
 .sidebar::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Edge */
+    display: none;
 }
 
 .sidebar.collapsed {
@@ -74,7 +77,7 @@ a:-webkit-any-link {
     opacity: 0;
 }
 
-/* Sidebar Navigation Items */
+/* Sidebar Navigation */
 .nav-list {
     list-style: none;
     padding: 0;
@@ -91,7 +94,6 @@ a:-webkit-any-link {
     transition: background-color 0.3s;
 }
 
-/* Icon Spacing */
 .nav-item .icon {
     width: 24px;
     height: 24px;
@@ -99,7 +101,6 @@ a:-webkit-any-link {
     transition: margin-right 0.5s;
 }
 
-/* Text Spacing */
 .nav-item .text {
     flex: 1;
     white-space: nowrap;
@@ -107,25 +108,23 @@ a:-webkit-any-link {
 }
 
 .sidebar.collapsed .nav-item {
-    padding: 10px 15px; /* Adjust padding when collapsed */
+    padding: 10px 15px;
 }
 
 .sidebar.collapsed .icon {
-    margin-right: 0; 
+    margin-right: 0;
     transition: 0.5s;
 }
 
 .sidebar.collapsed .text {
-    opacity: 0; 
-    margin-left: -15px; 
+    opacity: 0;
+    margin-left: -15px;
 }
 
-/* Active and Hover Styles */
 .nav-item.active, .nav-item:hover {
-    background-color: #00796b; /* Background change on hover */
+    background-color: #00796b;
 }
 
-/* Ensure text is bold on active or hover */
 .nav-item.active .text, .nav-item:hover .text {
     font-weight: bold;
 }
@@ -142,6 +141,7 @@ a:-webkit-any-link {
     opacity: 0;
 }
 
+/* Main Content */
 .main-content {
     flex: 1;
     background-color: #f5f5f5;
@@ -156,6 +156,7 @@ a:-webkit-any-link {
     margin-left: 60px;
 }
 
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -187,10 +188,11 @@ a:-webkit-any-link {
 .header-left {
     display: flex;
     align-items: center;
-    position: sticky; /* Makes .header-left sticky */
-    top: 0;           /* Sticks it to the top of the viewport */
-    z-index: 3;       /* Ensures it stays above other content if needed */
+    position: sticky;
+    top: 0;
+    z-index: 3;
 }
+
 .hamburger-menu {
     font-size: 24px;
     cursor: pointer;
@@ -235,14 +237,7 @@ a:-webkit-any-link {
     background-color: #f0f0f0;
 }
 
-.content-section {
-    display: none;
-}
-
-.content-section.active {
-    display: block;
-}
-
+/* Dashboard Content */
 .dashboard {
     margin-top: 80px;
 }
@@ -255,7 +250,7 @@ a:-webkit-any-link {
     line-height: 1.2;
 }
 
-/* Cards section */
+/* Cards */
 .cards {
     display: flex;
     gap: 20px;
@@ -274,16 +269,14 @@ a:-webkit-any-link {
     flex-direction: column;
     align-items: center;
     margin-top: 100px;
-    transition: transform 0.3s, box-shadow 0.3s; /* Add transition for scaling and shadow */
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Hover effect */
 .card:hover {
-    transform: scale(1.05); /* Scale up on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Icon Box */
 .card-icon-box {
     background-color: #f0f0f0;
     border-radius: 8px;
@@ -314,7 +307,7 @@ a:-webkit-any-link {
 }
 
 .card:nth-child(2) .card-icon-box {
-    background-color: #21bbf8; 
+    background-color: #21bbf8;
 }
 
 .card:nth-child(3) .card-icon-box {
@@ -325,7 +318,7 @@ a:-webkit-any-link {
     background-color: #06644c;
 }
 
-/* Overlay for mobile view */
+/* Overlay */
 .overlay {
     position: fixed;
     top: 0;
@@ -343,7 +336,81 @@ a:-webkit-any-link {
     opacity: 1;
 }
 
-/* Mobile responsiveness */
+/* Responsive Design */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .title {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        flex: 1 1 100%;
+        margin-top: 20px;
+    }
+    
+    .card-icon-box {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .card-text {
+        font-size: 1.1em;
+    }
+    
+    .card-value {
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -60px;
+        width: 60px;
+        height: 100%;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+        left: 0;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .title, .nav-section .text {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .header {
+        padding: 0 10px;
+    }
+}
+
 @media (max-width: 768px) {
     .header {
         left: 0;
@@ -408,245 +475,5 @@ a:-webkit-any-link {
 
     .user-dropdown {
         min-width: 120px; 
-    }
-}
-
-
-
-/* Styles for laptop screens */
-@media (max-width: 1024px) {
-    .sidebar {
-        width: 60px;
-        transition: width 0.3s ease;
-    }
-
-    .sidebar.collapsed {
-        width: 60px; 
-    }
-
-    .sidebar-header {
-        justify-content: center;
-    }
-
-    .logo {
-        width: 50px;
-        height: 50px;
-    }
-
-    .title {
-        display: none; 
-    }
-
-    .nav-item .text {
-        display: none; 
-    }
-
-    .main-content {
-        margin-left: 0;
-    }
-
-    .sidebar.collapsed + .main-content {
-        margin-left: 0;
-    }
-
-    .sidebar.collapsed:hover {
-        width: 250px;
-    }
-
-    .nav-item .icon {
-        margin-right: 0;
-    }
-
-    .sidebar.collapsed:hover .nav-item .text {
-        display: inline-block;
-        opacity: 1;
-    }
-
-    .sidebar.collapsed:hover .nav-item .icon {
-        margin-right: 15px;
-    }
-
-    .sidebar-toggle-btn {
-        display: block;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background-color: #004d40;
-        color: white;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        z-index: 3; 
-    }
-
-    .sidebar.collapsed .sidebar-toggle-btn {
-        display: block;
-    }
-}
-
-/* Styles for tablet screens */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 50px;
-        transition: width 0.3s ease;
-    }
-
-    .sidebar.collapsed {
-        width: 50px; 
-    }
-
-    .sidebar-header {
-        justify-content: center;
-    }
-
-    .logo {
-        width: 60px;
-        height: 60px;
-    }
-
-    .title {
-        display: none; 
-    }
-
-    .nav-item .text {
-        display: none; 
-    }
-
-    .main-content {
-        margin-left: 0;
-    }
-
-    .sidebar.collapsed + .main-content {
-        margin-left: 0;
-    }
-
-    .sidebar.collapsed:hover {
-        width: 200px;
-    }
-
-    .nav-item .icon {
-        margin-right: 0;
-    }
-
-    .sidebar.collapsed:hover .nav-item .text {
-        display: inline-block;
-        opacity: 1;
-    }
-
-    .sidebar.collapsed:hover .nav-item .icon {
-        margin-right: 10px;
-    }
-
-    .sidebar-toggle-btn {
-        display: block;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background-color: #004d40;
-        color: white;
-        border: none;
-        font-size: 22px;
-        cursor: pointer;
-        z-index: 3; 
-    }
-}
-
-/* Styles for mobile screens */
-@media (max-width: 480px) {
-    /* Keep sidebar at fixed width and transition smoothly */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: -60px; /* Initially hide the sidebar off-screen */
-        width: 60px;
-        height: 100%;
-        transition: left 0.3s ease;
-    }
-
-    /* Sidebar expands when toggled */
-    .sidebar.collapsed {
-        left: 0;
-    }
-
-    .logo {
-        width: 40px;
-        height: 40px;
-    }
-
-    .nav-item .icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 0;
-    }
-
-    .nav-item .text {
-        display: none;
-    }
-
-    .sidebar.collapsed .nav-item {
-        padding: 10px 10px; 
-    }
-
-    .main-content {
-        margin-left: 0; /* Prevent any margin shift */
-    }
-
-    /* Ensure the header stays fixed */
-    .header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 2; /* Ensure it stays above sidebar */
-    }
-
-    /* No margin shift for the main content */
-    .main-content {
-        margin-left: 0;
-        padding-top: 60px; /* Adjust for header */
-    }
-    
-    /* Hide the sidebar when collapsed and show the expanded one on hover */
-    .sidebar-toggle-btn {
-        display: block;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background-color: #004d40;
-        color: white;
-        border: none;
-        font-size: 22px;
-        cursor: pointer;
-        z-index: 3; 
-    }
-}
-
-
-
-
-
-
-@media (max-width: 1024px) {
-    .card {
-        flex: 1 1 calc(50% - 20px); 
-    }
-}
-
-@media (max-width: 600px) {
-    .card {
-        flex: 1 1 100%; 
-        margin-top: 20px;
-    }
-    
-    .card-icon-box {
-        width: 60px;  
-        height: 60px;
-    }
-    
-    .card-text {
-        font-size: 1.1em; 
-    }
-    
-    .card-value {
-        font-size: 1.4em;
     }
 }

@@ -158,6 +158,8 @@ $enforcers = $enforcers_stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/Index.css">
     <link rel="stylesheet" href="../css/OffenseR.css">
     <link rel="stylesheet" href="../css/summonL.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -422,6 +424,38 @@ $enforcers = $enforcers_stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
+            <!-- Toast Notifications -->
+    <?php if (isset($_SESSION['message_success'])): ?>
+    <script>
+        Toastify({
+            text: "<?php echo addslashes(htmlspecialchars($_SESSION['message_success'])); ?>",
+            duration: 2500,
+            close: true,
+            gravity: "top",
+            position: 'right',
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            stopOnFocus: true,
+            className: "toastify-enter toastify-glass"
+        }).showToast();
+    </script>
+    <?php unset($_SESSION['message_success']); ?>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['message_error'])): ?>
+    <script>
+        Toastify({
+            text: "<?php echo addslashes(htmlspecialchars($_SESSION['message_error'])); ?>",
+            duration: 2500,
+            close: true,
+            gravity: "top",
+            position: 'right',
+            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            stopOnFocus: true,
+            className: "toastify-enter toastify-glass"
+        }).showToast();
+    </script>
+    <?php unset($_SESSION['message_error']); ?>
+    <?php endif; ?>
     <script src="../js/script.js"></script>
     <script src="../js/offenseRecords.js"></script>
 
