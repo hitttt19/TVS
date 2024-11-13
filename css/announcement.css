@@ -1,0 +1,169 @@
+.announcement {
+    margin-top: 55px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid rgb(85, 82, 82);
+    border-top: 5px solid #004d40;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.announcement h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+}
+
+.announcement-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.form-group input[type="text"], 
+.form-group textarea {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.announcement-submit-btn {
+    align-self: flex-start;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px 15px 30px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.announcement-submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.announcement-list {
+    max-height: 210px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Optional border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    padding: 10px; /* Inner padding */
+    margin-top: 20px; /* Space above the list */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
+.announcement-list::-webkit-scrollbar {
+    width: 0;  /* Hides the scrollbar */
+    height: 0; /* Hides horizontal scrollbar */
+}
+
+.announcement-list {
+    scrollbar-width: none; /* Hides scrollbar */
+}
+
+
+.h3 {
+    font-size: 1.3em;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.announcement-list ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.announcement-list li {
+    position: relative; /* Allows for absolute positioning of button group */
+    padding: 10px; /* Optional: Add some padding */
+    border-bottom: 1px solid #ccc; /* Optional: Add a bottom border for separation */
+}
+
+.button-group {
+    position: absolute; /* Position relative to the list item */
+    top: 10px; /* Adjust as necessary */
+    right: 10px; /* Adjust as necessary */
+}
+
+.edit-btn, .delete-btn {
+    background: none; /* Remove default button styles */
+    border: none; /* Remove borders */
+    cursor: pointer; /* Change cursor to pointer */
+    margin-left: 5px; /* Space between buttons */
+}
+
+.edit-btn img, .delete-btn img {
+    width: 20px; /* Adjust icon size as necessary */
+    height: 20px; /* Adjust icon size as necessary */
+}
+
+
+.announcement-list li p {
+    margin-top: 5px;
+    color: #555;
+}
+
+
+
+/* Base button style */
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; 
+    height: 30px; 
+    padding: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: transparent; /* Ensures no default background */
+}
+
+/* Edit button style */
+button.edit-btn {
+    background-color: #218838; /* Green color */
+}
+
+button.edit-btn:hover {
+    background-color: #1e7e34; /* Darker green on hover */
+}
+
+/* Delete button style */
+button.delete-btn {
+    background-color: #dc3545; /* Red color */
+}
+
+button.delete-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* Icon style */
+button img {
+    width: 16px; 
+    height: 16px; 
+    object-fit: contain; 
+}
+
+

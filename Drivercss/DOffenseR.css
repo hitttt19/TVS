@@ -1,0 +1,156 @@
+.offenseR {
+    margin-top: 80px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid rgb(85, 82, 82);
+    border-top: 5px solid #004d40;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);   
+}
+
+.offenseR h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+}
+
+.offenseR-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.offenseR-controls label, .offenseR-controls select, .offenseR-controls input, .offenseR-controls button {
+    font-size: 1em;
+}
+
+.offenseR-table-container {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table td {
+    color: #333;
+    background-color: #fff;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination .previous, .pagination .next, .pagination .page-number {
+    background-color: #ddd;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination .previous:hover, .pagination .next:hover, .pagination .page-number:hover {
+    background-color: #ccc;
+}
+
+.pagination .page-number.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination .page-number.active:hover {
+    background-color: #006fce;
+}
+
+
+.view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; 
+    height: 30px; 
+    padding: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.view-btn img {
+    width: 16px; 
+    height: 16px; 
+    object-fit: contain; 
+}
+
+.search-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-container label {
+    font-weight: bold;
+}
+
+.search-container input {
+    padding: 8px;  /* Slightly increased padding for a modern look */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Ensure full width */
+}
+
+
+.search-btn {
+    background-color: gainsboro; /* Button background color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for button */
+    cursor: pointer; /* Pointer on hover */
+    margin-left: 10px; /* Spacing between input and button */
+    display: flex; /* Center the icon */
+    align-items: center;
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.search-btn:hover {
+    background-color: rgb(168, 168, 168); /* Darker background on hover */
+}
+
+.search-btn img {
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Maintain aspect ratio */
+}
+

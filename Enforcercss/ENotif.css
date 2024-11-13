@@ -1,0 +1,54 @@
+.notification {
+    padding: 20px;
+    background-color: #f9f9f9; 
+    margin-top: 80px;
+    border-top: 5px solid #004d40;
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification h2 {
+    font-size: 1.5em; 
+    color: #333; 
+    margin-bottom: 20px; /* Space below the title */
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+    
+}
+
+.notification-list {
+    margin-top: 20px;
+}
+
+.notification-list h3 {
+    font-size: 1.5em; 
+    color: #333; 
+    margin-bottom: 15px; 
+    text-align: center; /* Center-align the subheading */
+}
+
+.notification-list ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0;
+}
+
+.notification-list li {
+    padding: 15px;
+    border-bottom: 1px solid #ddd; /* Divider between items */
+    margin-bottom: 10px; /* Space between items */
+}
+
+.notification-list li:last-child {
+    border-bottom: none; /* Remove border from the last item */
+}
+
+.notification-list strong {
+    display: block;
+    margin-bottom: 5px; 
+    color: #000; 
+}
+
+.notification-list p {
+    margin: 0; /* Remove default margin */
+    color: #555; /* Subtle text color for content */
+}

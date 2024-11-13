@@ -1,0 +1,444 @@
+.drivers-list {
+    margin-top: 80px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid rgb(85, 82, 82);
+    border-top: 5px solid #004d40;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.drivers-list h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.controls label, .controls select, .controls input, .controls button {
+    font-size: 1em;
+}
+
+.controls .create-new {
+    background-color: #1983e6; /* Updated to match offense records */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.controls .create-new:hover {
+    background-color: #0375d3;
+}
+
+.table-container {
+    max-height: 500px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: auto; /* Hide horizontal scrolling */
+    border: 1px solid #ccc; /* Optional: add border around the table */
+
+}
+
+.table-container::-webkit-scrollbar {
+    width: 0;  /* Hides the scrollbar */
+    height: 0; /* Hides horizontal scrollbar */
+}
+
+.table-container {
+    scrollbar-width: none; /* Hides scrollbar */
+}
+
+.table {
+    width: 100%; /* Make sure table takes full width */
+    border-collapse: collapse; /* Optional: Remove space between borders */
+}
+
+.table th, .table td {
+    padding: 10px; /* Add some padding */
+    text-align: left; /* Align text to the left */
+}
+
+.table thead th {
+    background-color: #f2f2f2; /* Optional: background color for header */
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Align it to the top */
+    z-index: 10; /* Ensure it's above the other rows */
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* Change to your preferred hover color */
+    cursor: pointer; /* Change cursor to pointer for better UX */
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination .previous, .pagination .next, .pagination .page-number {
+    background-color: #ddd;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination .previous:hover, .pagination .next:hover, .pagination .page-number:hover {
+    background-color: #ccc;
+}
+
+.pagination .page-number.active {
+    background-color: #28a745; /* Updated to match offense records */
+    color: white;
+}
+
+.pagination .page-number.active:hover {
+    background-color: #218838;
+}
+
+/* Modal Background */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: fadeInBackground 0.5s ease forwards; /* Adding fade-in animation */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    z-index: 1001;
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s ease forwards; /* Adding slide-in animation */
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form Labels */
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Form Inputs */
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Flexbox for two-column layout */
+.modal-content form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1 1 calc(50% - 20px); /* Two-column layout */
+    min-width: 200px; /* Ensure fields are not too narrow */
+}
+
+textarea {
+    width: 100%; /* Ensure textareas expand to full width */
+}
+
+/* Form Button */
+.modal-content button {
+    background-color: #0375d3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.modal-content button:hover {
+    background-color: #1983e6;
+}
+
+/* Additional Styles */
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.modal-content textarea {
+    resize: vertical;
+}
+
+/* Fade-in animation for modal background */
+@keyframes fadeInBackground {
+    from { 
+        background-color: rgba(0, 0, 0, 0); 
+    }
+    to { 
+        background-color: rgba(0, 0, 0, 0.4); 
+    }
+}
+
+/* Slide-in animation for modal content */
+@keyframes slideIn {
+    from { 
+        transform: translateY(-50px); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+}
+
+/* Fade-out animation for closing modal */
+@keyframes fadeOutBackground {
+    from { 
+        background-color: rgba(0, 0, 0, 0.4); 
+    }
+    to { 
+        background-color: rgba(0, 0, 0, 0); 
+    }
+}
+
+/* Slide-out animation for closing modal content */
+@keyframes slideOut {
+    from { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+    to { 
+        transform: translateY(-50px); 
+        opacity: 0; 
+    }
+}
+
+/* Modal Background for viewDriverModal */
+#viewDriverModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    animation: fadeInBackground 0.5s ease forwards; /* Fade-in animation */
+}
+
+/* Modal Content for viewDriverModal */
+#viewDriverModal .modal-content {
+    position: relative;
+    z-index: 1001;
+    background-color: #f0f0f0; /* Light gray background to mimic a card */
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+    animation: slideIn 0.5s ease forwards; /* Slide-in animation */
+    border: 2px solid #e1e1e1; /* Border for a card-like appearance */
+}
+
+/* Header Styling for viewDriverModal */
+#viewDriverModal .modal-content h2 {
+    margin-top: 0;
+    color: #000000; /* Dark blue for a professional look */
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #004d40;
+    padding-bottom: 10px;
+}
+
+/* Close Button for viewDriverModal */
+#viewDriverModal .close {
+    color: #666;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#viewDriverModal .close:hover,
+#viewDriverModal .close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Styling for Driver Details in viewDriverModal */
+#viewDriverModal .driver-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two-column layout */
+    gap: 10px;
+}
+
+#viewDriverModal .driver-details p {
+    margin: 5px;
+    color: #333;
+    font-size: 14px;
+}
+
+#viewDriverModal .driver-details p strong {
+    color: #000000; /* Emphasize labels */
+    font-weight: bold;
+}
+
+/* One-Column Span for Full-Width Details in viewDriverModal */
+#viewDriverModal .full-width {
+    grid-column: span 2; /* Span both columns */
+}
+
+/* Fade-in animation for modal background */
+@keyframes fadeInBackground {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Slide-in animation for modal content */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+
+
+.edit-btn, .delete-btn, .view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.edit-btn {
+    background-color: #218838;
+}
+
+.edit-btn:hover {
+    background-color: #1e7e34;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.edit-btn img, .delete-btn img, .view-btn img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.search-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-container label {
+    font-weight: bold;
+}
+
+.search-container input {
+    padding: 8px;  /* Slightly increased padding for a modern look */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Ensure full width */
+}
+
+
+.search-btn {
+    background-color: gainsboro; /* Button background color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for button */
+    cursor: pointer; /* Pointer on hover */
+    margin-left: 10px; /* Spacing between input and button */
+    display: flex; /* Center the icon */
+    align-items: center;
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.search-btn:hover {
+    background-color: rgb(168, 168, 168); /* Darker background on hover */
+}
+
+.search-btn img {
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Maintain aspect ratio */
+}

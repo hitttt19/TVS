@@ -1,0 +1,357 @@
+.offense-records {
+    margin-top: 80px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;  /* Lightened border color */
+    border-top: 5px solid #004d40;
+    border-radius: 10px;  /* Slightly more rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Softer shadow */
+    overflow: hidden;  /* To prevent overflow issues */
+}
+
+.offense-records h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #000000;  /* More modern color */
+    font-weight: 600;
+    border-bottom: 2px solid #ddd;  /* Lighter border */
+    padding-bottom: 10px;
+}
+
+.offenseR-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap;  /* Allow controls to wrap on smaller screens */
+}
+
+.offenseR-controls label, .offenseR-controls select, .offenseR-controls input, .offenseR-controls button {
+    font-size: 1em;
+}
+
+.offenseR-controls .create-new {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 6px;  /* Slightly more rounded */
+    transition: background-color 0.3s ease;
+}
+
+.offenseR-controls .create-new:hover {
+    background-color: #0056b3;  /* Darker hover color */
+}
+
+
+.offenseR-table-container {
+    overflow-x: auto;
+    max-height: 425px;  /* Set max height for scrolling */
+    overflow-y: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;  /* Softer border color */
+}
+
+.table th {
+    background-color: #fafafa;  /* Lighter background for headers */
+    color: #333;  /* Darker text for contrast */
+    font-weight: bold;
+    /* text-transform: uppercase;  */
+    position: sticky;
+    top: 0;  /* Stick to the top */
+    z-index: 1;  /* Ensure the header is above table rows */
+}
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table td {
+    color: #333;
+    background-color: #fff;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination .previous, .pagination .next, .pagination .page-number {
+    background-color: #ddd;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 6px;  /* Slightly more rounded */
+    transition: background-color 0.3s ease;
+}
+
+.pagination .previous:hover, .pagination .next:hover, .pagination .page-number:hover {
+    background-color: #bbb;  /* Softer hover effect */
+}
+
+.pagination .page-number.active {
+    background-color: #28a745;
+    color: white;
+}
+
+.pagination .page-number.active:hover {
+    background-color: #0056b3;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: fadeInBackground 0.5s ease forwards; /* Adding fade-in animation */
+}
+
+/* Modal Content with slide-in animation */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    border-top: 5px solid#004d40;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s ease forwards; /* Adding slide-in animation */
+}
+
+/* Close button */
+.close {
+    color: #888;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+}
+
+.close:hover,
+.close:focus {
+    color: #555;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form Group Flexbox Layout */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group.inline-group {
+    width: 48%; /* Set width for two inputs side-by-side */
+    display: inline-block;
+    vertical-align: top;
+}
+
+.form-group label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: block;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 90%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+/* Flex-wrap form layout for better responsiveness */
+form {
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Keep form actions aligned at the bottom */
+.form-actions {
+    text-align: right;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Button Styling */
+.button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Modal Background Fade-in Animation */
+@keyframes fadeInBackground {
+    from { 
+        background-color: rgba(0, 0, 0, 0); 
+    }
+    to { 
+        background-color: rgba(0, 0, 0, 0.75); /* Keep darker backdrop as before */
+    }
+}
+
+/* Slide-in animation for modal content */
+@keyframes slideIn {
+    from { 
+        transform: translateY(-50px); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+}
+
+/* Fade-out animation for closing modal background */
+@keyframes fadeOutBackground {
+    from { 
+        background-color: rgba(0, 0, 0, 0.75); 
+    }
+    to { 
+        background-color: rgba(0, 0, 0, 0); 
+    }
+}
+
+/* Slide-out animation for closing modal content */
+@keyframes slideOut {
+    from { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+    to { 
+        transform: translateY(-50px); 
+        opacity: 0; 
+    }
+}
+
+.edit-btn, .delete-btn, .send-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; 
+    height: 30px; 
+    padding: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.send-btn {
+    background-color: #1983e6;
+}
+
+.send-btn:hover {
+    background-color: #0375d3;
+}
+
+.edit-btn {
+    background-color: #218838;
+}
+
+.edit-btn:hover {
+    background-color: #1e7e34;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.edit-btn img, .delete-btn img, .send-btn img {
+    width: 16px; 
+    height: 16px; 
+    object-fit: contain; 
+}
+
+.search-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-container label {
+    font-weight: bold;
+}
+
+.search-container input {
+    padding: 8px;  /* Slightly increased padding for a modern look */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Ensure full width */
+}
+
+
+.search-btn {
+    background-color: gainsboro; /* Button background color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for button */
+    cursor: pointer; /* Pointer on hover */
+    margin-left: 10px; /* Spacing between input and button */
+    display: flex; /* Center the icon */
+    align-items: center;
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.search-btn:hover {
+    background-color: rgb(168, 168, 168); /* Darker background on hover */
+}
+
+.search-btn img {
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Maintain aspect ratio */
+}
+
+/* Status Labels */
+.Resolved {
+    color: #43a047;
+}
+
+.Unsettled {
+    color: #9e9e9e;
+}
+
+.Pending {
+    color: #e53935;
+}

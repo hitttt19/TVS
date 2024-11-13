@@ -1,0 +1,270 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(image/trf.jpg) no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Add this line to remove the scrollbar */
+}
+
+header {
+    background-color: #0A3B31;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+/* Logo section styling */
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+.logo a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.RDtxt {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Navigation section styling */
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+    transition: transform 0.3s ease;
+}
+
+nav ul li:hover {
+    transform: scale(1.05);
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Container styling for the form overlay */
+.container {
+    display: flex;
+    width: 800px;
+    max-width: 90%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 70px; /* Pushes the container down from header */
+}
+
+/* Left section (welcome message) */
+.left-section {
+    width: 40%;
+    background: linear-gradient(to right, #0A3B31, #106151);
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+.left-section h2 {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.left-section p {
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+.icon {
+    width: 60px;
+    margin: 20px 0;
+}
+
+.register-btn {
+    padding: 10px 20px;
+    background-color: rgba(0, 77, 64, 0.8);
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid rgb(143, 143, 143);
+}
+.register-btn:hover {
+    background-color: #06312a; /* Keep text color white */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+
+/* Login container styling */
+.login-container {
+    width: 60%;
+    background-color: #ffffff;
+    padding: 30px;
+    text-align: center;
+}
+
+.login-container img {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.login-container .modal-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.login-container .modal-subtitle {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+form input {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    background-color: #0b463a;
+}
+
+form button:hover {
+    background-color: #09382f;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 10px;
+    color: #0A3B31;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.password-group {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* Responsive styling for the hamburger on mobile view */
+.hamburger {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Stack logo and navigation vertically */
+    header {
+        flex-direction: column;  /* Stack logo and navigation on top of each other */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    /* Ensure the logo is still centered and aligned correctly */
+    .logo {
+        margin-bottom: 10px;
+    }
+
+    /* Hamburger menu */
+    .hamburger {
+        display: block;  /* Show hamburger icon on small screens */
+        cursor: pointer;
+        position: absolute;
+        color: white;
+        top: 55px;
+        left: 20px;  /* Position it in the top-left corner */
+    }
+
+    /* Adjust the navigation to be hidden by default */
+    nav {
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start; /* Align nav items to the left */
+        padding-top: 10px;
+        position: absolute;
+        top: 70px; /* Position the nav below the header */
+        left: 0;
+        background-color: #0A3B31;  /* Same background as header */
+        z-index: 10;  /* Ensure it appears above other content */
+    }
+
+    /* Show navigation when active */
+    nav.active {
+        display: flex;
+    }
+
+    /* Make the navigation items stack vertically */
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    /* Ensure the nav items take full width */
+    nav ul li {
+        width: 100%;
+        margin: 10px 0;
+        text-align: left;
+    }
+
+    /* Style links to span the entire width */
+    nav ul li a {
+        padding: 10px;
+        width: 100%;
+        display: block;
+        font-size: 16px;
+        color: white;
+        text-decoration: none;
+    }
+
+    /* Hover effect for the links */
+    nav ul li a:hover {
+        background-color: #06312a;
+        border-radius: 5px;
+    }
+}
