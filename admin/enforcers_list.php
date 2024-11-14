@@ -126,6 +126,7 @@ if (isset($_GET['view_id'])) {
     <link rel="icon" href="../logo/RegLogo.png" id="favicon">
     <link rel="stylesheet" href="../css/Index.css">
     <link rel="stylesheet" href="../css/EnforcerL.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
 
@@ -171,6 +172,50 @@ if (isset($_GET['view_id'])) {
                 </li>
             </ul>
         </nav>
+                      <!-- Mobile Sidebar -->
+<nav class="mobile-sidebar">
+    <div class="sidebar-header">
+        <img src="../logo/RegLogo.png" alt="Reguladrive Logo" class="logo">
+        <span class="logo-text">Reguladrive</span>
+    </div>
+    <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-list">
+        <li class="nav-item" onclick="window.location='admin_dashboard.php';">
+            <a href="#"><img src="../icons/Dashboard.png" alt="Dashboard Icon" class="icon"><span class="text">Dashboard</span></a>
+        </li>
+        <li class="nav-item" onclick="window.location='offense_records.php';">
+                    <a href="#"><img src="../icons/Important Note.png" alt="Offense Records Icon" class="icon"><span class="text">Offense Records</span></a>
+                </li>
+                <li class="nav-item active" onclick="window.location='enforcers_list.php';">
+                    <a href="#"><img src="../icons/enforcer.png" alt="Enforcer Icon" class="icon"><span class="text">Traffic Enforcers</span></a>
+                </li>
+                <li class="nav-item" onclick="window.location='drivers_list.php';">
+                    <a href="#"><img src="../icons/Driver License.png" alt="Drivers List Icon" class="icon"><span class="text">Drivers List</span></a>
+                </li>
+                <li class="nav-item" onclick="window.location='reports.php';">
+                    <a href="#"><img src="../icons/Business Report.png" alt="Reports Icon" class="icon"><span class="text">Reports</span></a>
+                </li>
+                <li class="nav-item" onclick="window.location='contact.php';">
+                    <a href="#"><img src="../icons/Call.png" alt="Contact Icon" class="icon"><span class="text">Contact</span></a>
+                </li>
+                <li class="nav-item" onclick="window.location='announcement.php';">
+                    <a href="#"><img src="../icons/Commercial.png" alt="Announcement Icon" class="icon"><span class="text">Announcement</span></a>
+                </li>
+                <li class="nav-section"><span class="text">Maintenance</span></li>
+                <li class="nav-item" onclick="window.location='offenses_list.php';">
+                    <a href="#"><img src="../icons/Important Note.png" alt="Offenses List Icon" class="icon"><span class="text">Offenses List</span></a>
+                </li>
+                <li class="nav-item" onclick="window.location='settings.php';">
+                    <a href="#"><img src="../icons/Settings.png" alt="Settings Icon" class="icon"><span class="text">Settings</span></a>
+                </li>
+                <li class="nav-item" onclick="window.location='../logout.php';">
+                    <a href="#"><img src="../icons/logout.png" alt="Logout Icon" class="icon"><span class="text">Logout</span></a>
+                </li>
+    </ul>
+</nav>
+
         <!-- Toast Notifications -->
         <?php if (isset($_SESSION['message_success'])): ?>
             <script>
@@ -202,7 +247,6 @@ if (isset($_GET['view_id'])) {
             <!-- Header -->
             <header class="header">
                 <div class="header-left">
-                    <div class="hamburger-menu" onclick="toggleSidebar()">&#9776;</div>
                     <h2>Bogo City Traffic Violations System</h2>
                 </div>
                 <div class="user-menu">

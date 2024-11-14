@@ -333,12 +333,6 @@ a:-webkit-any-link {
     top: 0;           /* Sticks it to the top of the viewport */
     z-index: 3;       /* Ensures it stays above other content if needed */
 }
-.hamburger-menu {
-    font-size: 24px;
-    cursor: pointer;
-    padding-right: 20px;
-}
-
 .user-menu {
     display: flex;
     align-items: center;
@@ -576,16 +570,11 @@ th {
     }
 
     .report-table-container {
-        position: relative; 
+        overflow-x: auto;  /* Enable horizontal scroll */
+        overflow-y: scroll; /* Hide vertical scroll */
+        max-height: 300px;  /* Adjust height for mobile view */
     }
 
-    .table-scroll {
-        max-height: 400px; /* Adjust height as needed */
-        overflow-y: auto; /* Enable vertical scrolling */
-        overflow-x: auto; /* Hide horizontal scrolling */
-        border: 1px solid #ccc; /* Optional: add border around the table */
-    
-    }
     
     .table-scroll::-webkit-scrollbar {
         width: 0;  /* Hides the scrollbar */
@@ -776,11 +765,6 @@ th {
         width: 100%; 
     }
 
-    .hamburger-menu {
-        font-size: 30px;
-        padding-right: 15px; 
-    }
-
     .user-menu {
         font-size: 1em;
         margin-right: 40px;
@@ -799,10 +783,6 @@ th {
 @media (max-width: 480px) {
     .header h2 {
         font-size: 1em;
-    }
-
-    .hamburger-menu {
-        font-size: 28px; 
     }
 
     .header {

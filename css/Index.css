@@ -57,6 +57,7 @@ a:-webkit-any-link {
     top: 0;
     left: 0;
     right: 0;
+    border-bottom: 1px solid rgb(8, 43, 36); /* Add bottom border */
 }
 
 .logo {
@@ -193,12 +194,6 @@ a:-webkit-any-link {
     z-index: 3;
 }
 
-.hamburger-menu {
-    font-size: 24px;
-    cursor: pointer;
-    padding-right: 20px;
-}
-
 .user-menu {
     display: flex;
     align-items: center;
@@ -318,6 +313,100 @@ a:-webkit-any-link {
     background-color: #06644c;
 }
 
+/* Mobile Sidebar */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -200px; /* Smaller sidebar width */
+    width: 200px; /* Reduced width */
+    height: 100%;
+    background-color: #004d40;
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 9999;
+    overflow-y: hidden; /* Allow scrolling if needed */
+    overflow-x: hidden;
+}
+
+.mobile-sidebar .logo-text {
+    font-size: 16px; /* Adjust text size */
+    color: white; /* Text color */
+    margin-left: 10px; /* Space between logo and text */
+    font-weight: bold; /* Optional: make the text bold */
+}
+
+/* Sidebar List Styles */
+.mobile-sidebar .nav-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 60px; /* Adjust space from the top */
+}
+
+.mobile-sidebar .nav-item {
+    padding: 1px 7px; /* Smaller padding for compactness */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px; /* Smaller font size for mobile */
+    border-bottom: 1px solid #fff; /* Optional, adds separation */
+    transition: background-color 0.3s ease;
+}
+
+.mobile-sidebar .nav-item:hover {
+    background-color: #00796b; /* Hover effect */
+}
+/* Active Nav Item */
+.mobile-sidebar .nav-item.active {
+    padding: 1px 7px; /* Reduced padding for active item */
+    background-color: #00796b; /* Highlight background for active item */
+}
+
+.mobile-sidebar .nav-item .icon {
+    width: 16px; /* Smaller icon size */
+    height: 16px;
+    margin-right: 8px; /* Reduced spacing between icon and text */
+}
+
+.mobile-sidebar .nav-item .text {
+    flex: 1;
+    white-space: nowrap; /* Prevent text overflow */
+    font-size: 12px; /* Adjust text size */
+}
+
+/* Mobile Sidebar Show */
+.mobile-sidebar.show {
+    left: 0;
+}
+/* Initially hide the hamburger icon when the sidebar is open */
+#hamburger.hidden {
+    display: none;
+}
+
+/* Hamburger Icon */
+.hamburger {
+    display: none; /* Hidden by default */
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 10000; /* Ensure it sits above other elements */
+}
+
+@media (max-width: 768px) {
+    .mobile-sidebar .hamburger {
+        display: block; /* Show hamburger inside mobile sidebar */
+    }
+
+    .sidebar {
+        display: none; /* Hide main sidebar on mobile */
+    }
+
+    .main-content {
+        margin-left: 0; /* Adjust main content for mobile */
+    }
+}
+
+
 /* Overlay */
 .overlay {
     position: fixed;
@@ -420,7 +509,7 @@ a:-webkit-any-link {
 
     .header h2{
         font-size: 1em;
-        margin-right: 60px;
+        margin-left: 60px;
     }
 
 
@@ -433,11 +522,6 @@ a:-webkit-any-link {
         flex-direction: row; 
         justify-content: space-between; 
         width: 100%; 
-    }
-
-    .hamburger-menu {
-        font-size: 30px;
-        padding-right: 15px; 
     }
 
     .user-menu {
@@ -459,11 +543,6 @@ a:-webkit-any-link {
     .header h2 {
         font-size: 1em;
     }
-
-    .hamburger-menu {
-        font-size: 28px; 
-    }
-
     .header {
         padding: 0 5px; 
     }
