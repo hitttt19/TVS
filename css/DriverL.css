@@ -261,7 +261,7 @@ textarea {
     }
 }
 
-/* Modal Background for viewDriverModal */
+/* Modal Background */
 #viewDriverModal {
     display: none; /* Hidden by default */
     position: fixed;
@@ -271,73 +271,181 @@ textarea {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
-    animation: fadeInBackground 0.5s ease forwards; /* Fade-in animation */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
 }
 
-/* Modal Content for viewDriverModal */
+/* Modal Content */
 #viewDriverModal .modal-content {
     position: relative;
-    z-index: 1001;
-    background-color: #f0f0f0; /* Light gray background to mimic a card */
-    margin: 5% auto;
+    background-color: #ffffff;
+    margin: 2% auto;
     padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 700px;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 900px; /* Larger width */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     font-family: Arial, sans-serif;
-    animation: slideIn 0.5s ease forwards; /* Slide-in animation */
-    border: 2px solid #e1e1e1; /* Border for a card-like appearance */
 }
 
-/* Header Styling for viewDriverModal */
-#viewDriverModal .modal-content h2 {
-    margin-top: 0;
-    color: #000000; /* Dark blue for a professional look */
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 2px solid #004d40;
+/* Modal Header */
+#viewDriverModal .modal-header {
+    display: flex;
+    justify-content: left; /* Center the title */
+    align-items: left;
+    position: relative;
     padding-bottom: 10px;
+    border-bottom: 2px solid #004d40; /* Header line */
 }
 
-/* Close Button for viewDriverModal */
+/* Header Title */
+#viewDriverModal .modal-header h2 {
+    font-size: 20px;
+    font-weight: bold;  
+    color: #333;
+}
+
+/* Print Button - Positioned in the top-left corner */
+#viewDriverModal .print-btn {
+    position: absolute;
+    right: 85px; /* Align to the far left */
+    top: 100%;
+    height: 5vh;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 15px; /* Adjust padding for width */
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: auto; /* Adjust width to fit the content */
+}
+
+/* Styling for the icon and text */
+#viewDriverModal .print-btn .icon {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+#viewDriverModal .print-btn .text {
+    font-size: 14px;
+}
+/* Hover effect for the print button */
+#viewDriverModal .print-btn:hover {
+    background-color: #094688; /* Change background to red on hover */
+    color: #fff; /* Keep text white */
+}
+
+/* Close Button - Positioned in the top-right corner */
 #viewDriverModal .close {
-    color: #666;
-    float: right;
-    font-size: 24px;
+    position: absolute;
+    right: 2px; /* Align to the far right */
+    top: 100%;
+    transform: translateY(-50%);
+    background-color: #000000;
+    color: #fff; /* White text for contrast */
+    border: none;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    height: 5vh;
+    width: auto; /* Adjust width to fit content */
+    display: flex;
+    align-items: center;
+    text-align: left; /* Align the text to the left */
+    padding: 0 10px; /* Add some space around the text */
 }
 
-#viewDriverModal .close:hover,
-#viewDriverModal .close:focus {
-    color: #000;
-    text-decoration: none;
+/* Styling for the icon and text */
+#viewDriverModal .close .icon {
+    margin-right: 8px; /* Space between the icon and the text */
 }
 
-/* Styling for Driver Details in viewDriverModal */
-#viewDriverModal .driver-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two-column layout */
-    gap: 10px;
+#viewDriverModal .close .text {
+    font-size: 14px;
+}
+/* Hover effect for the close button */
+#viewDriverModal .close:hover {
+    background-color: #bb7575; /* Change background to red on hover */
+    color: #fff; /* Keep text white */
 }
 
-#viewDriverModal .driver-details p {
-    margin: 5px;
+/* Container Section (for each separate container) */
+.container-section {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 40px;
+    background-color: #f9f9f9;
+}
+
+/* Driver Info Section */
+.driver-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* Info Left Section */
+.driver-info .info-left {
+    flex: 3;
+}
+
+.driver-info .info-left p {
+    margin: 5px 0;
+    font-size: 14px;
     color: #333;
+}
+
+/* Profile Photo Styling */
+.driver-info .info-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.driver-info .profile-photo {
+    width: 150px; /* Set a fixed width */
+    height: 150px; /* Set height equal to width for a circular shape */
+    border: 1px solid #ddd;
+    border-radius: 50%; /* Make the photo circular */
+    object-fit: cover; /* Ensure the image covers the circle without distortion */
+}
+
+
+/* Offense Records Table */
+.offense-records {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+.offense-records th,
+.offense-records td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
     font-size: 14px;
 }
 
-#viewDriverModal .driver-details p strong {
-    color: #000000; /* Emphasize labels */
+.offense-records th {
+    background-color: #f0f0f0;
     font-weight: bold;
 }
 
-/* One-Column Span for Full-Width Details in viewDriverModal */
-#viewDriverModal .full-width {
-    grid-column: span 2; /* Span both columns */
+.offense-records td {
+    color: #333;
 }
+
+/* Section Title */
+.container-section h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
 
 /* Fade-in animation for modal background */
 @keyframes fadeInBackground {

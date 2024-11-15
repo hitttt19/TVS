@@ -106,8 +106,9 @@
 
 .profile-image img {
     width: 100%;
-    height: auto;
-    border-radius: 50%;
+    height: 100%;
+    border-radius: 50%; 
+    object-fit: cover; 
 }
 
 .upload-section {

@@ -388,36 +388,74 @@ if (isset($_GET['view_id'])) {
 </div>
 
 
-    <!-- Modal for View Driver -->
+   <!-- Modal for View Driver -->
 <div id="viewDriverModal" class="modal">
     <div class="modal-content">
-        <span class="close" id="closeViewDriver">&times;</span>
-        <h2>Driver Details</h2>
-        <?php if (isset($driverDetails)): ?>
-        <div class="driver-details">
-            <p><strong>License ID:</strong> <?php echo htmlspecialchars($driverDetails['license_id']); ?></p>
-            <p><strong>License Type:</strong> <?php echo htmlspecialchars($driverDetails['license_type']); ?></p>
-            <p><strong>First Name:</strong> <?php echo htmlspecialchars($driverDetails['firstname']); ?></p>
-            <p><strong>Middle Name:</strong> <?php echo htmlspecialchars($driverDetails['middlename']); ?></p>
-            <p><strong>Last Name:</strong> <?php echo htmlspecialchars($driverDetails['lastname']); ?></p>
-            <p><strong>Gender:</strong> <?php echo htmlspecialchars($driverDetails['gender']); ?></p>
-            <p class="full-width"><strong>Date of Birth:</strong> 
-                <?php 
-                    $dob = new DateTime($driverDetails['date_of_birth']);
-                    echo htmlspecialchars($dob->format('F d, Y')); 
-                ?>
-            </p>
-            <p class="full-width"><strong>Civil Status:</strong> <?php echo htmlspecialchars($driverDetails['civil_status']); ?></p>
-            <p class="full-width"><strong>Present Address:</strong> <?php echo htmlspecialchars($driverDetails['present_address']); ?></p>
-            <p class="full-width"><strong>Permanent Address:</strong> <?php echo htmlspecialchars($driverDetails['permanent_address']); ?></p>
-            <p><strong>Nationality:</strong> <?php echo htmlspecialchars($driverDetails['nationality']); ?></p>
-            <p><strong>Contact Number:</strong> <?php echo htmlspecialchars($driverDetails['contact_number']); ?></p>
-            <p><strong>Username:</strong> <?php echo htmlspecialchars($driverDetails['username']); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($driverDetails['email']); ?></p>
+        <div class="modal-header">
+            <button class="print-btn"><span class="icon">🖨️</span> <span class="text">Print</span></button>
+            <h2>Driver's Information</h2>
+            <button class="close" id="closeViewDriver"><span class="icon">✖</span><span class="text">Close</span></button>
         </div>
+        <?php if (isset($driverDetails)): ?>
+        <div class="container-section">
+            <div class="driver-info">
+                <div class="info-left">
+                    <p><strong>License ID:</strong> <?php echo htmlspecialchars($driverDetails['license_id']); ?></p>
+                    <p><strong>License Type:</strong> <?php echo htmlspecialchars($driverDetails['license_type']); ?></p>
+                    <p><strong>Name:</strong> <?php echo htmlspecialchars($driverDetails['firstname']) . " " . htmlspecialchars($driverDetails['middlename'][0]) . ". " . htmlspecialchars($driverDetails['lastname']); ?></p>
+                    <p><strong>DOB:</strong> <?php echo htmlspecialchars((new DateTime($driverDetails['date_of_birth']))->format('M d, Y')); ?></p>
+                    <p><strong>Civil Status:</strong> <?php echo htmlspecialchars($driverDetails['civil_status']); ?></p>
+                    <p><strong>Present Address:</strong> <?php echo htmlspecialchars($driverDetails['present_address']); ?></p>
+                    <p><strong>Permanent Address:</strong> <?php echo htmlspecialchars($driverDetails['permanent_address']); ?></p>
+                    <p><strong>Contact No.:</strong> <?php echo htmlspecialchars($driverDetails['contact_number']); ?></p>
+                    <p><strong>Nationality:</strong> <?php echo htmlspecialchars($driverDetails['nationality']); ?></p>
+                </div>
+                <div class="info-right">
+                    <!-- Check if photo exists, if not use the default image -->
+                    <img src="<?php echo !empty($driverDetails['photo']) ? htmlspecialchars($driverDetails['photo']) : '../image/defimage.png'; ?>" alt="Driver's Photo" class="profile-photo" />
+                </div>
+            </div>
+        </div>
+        <div class="container-section">
+    <h3>Offense Records</h3>
+    <table class="offense-records">
+        <thead>
+            <tr>
+                <th>DateTime</th>
+                <th>Offense</th>
+                <th>Fine</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (empty($records)): ?>
+                <tr>
+                    <td colspan="4">No offense records found.</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($records as $record): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars(date('M d, Y H:i A', strtotime($record['datetime']))); ?></td>
+                        <td><?php echo htmlspecialchars($record['offense_name']); ?></td>
+                        <td>₱<?php echo htmlspecialchars(number_format($record['offense_rate'], 2)); ?></td>
+                        <td>
+                            <span class="status <?php echo strtolower($record['status']); ?>">
+                                <?php echo htmlspecialchars($record['status']); ?>
+                            </span>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+
+
         <?php endif; ?>
     </div>
 </div>
+
+
 <script>
    document.addEventListener('DOMContentLoaded', function () {
     <?php if (isset($_SESSION['toast_message'])): ?>
