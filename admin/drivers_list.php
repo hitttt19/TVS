@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 // Hash the password
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 $stmt = $pdo->prepare("INSERT INTO drivers (license_id, license_type, firstname, middlename, lastname, gender, date_of_birth, civil_status, present_address, permanent_address, nationality, contact_number, username, email, password, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
                 $stmt->execute([$license_id, $license_type, $firstname, $middlename, $lastname, $gender, $date_of_birth, $civil_status, $present_address, $permanent_address, $nationality, $contact_number, $username, $email, $hashedPassword, null]);
                 $_SESSION['toast_message'] = "Driver created successfully!";
                 $_SESSION['toast_type'] = 'success'; // success or error
@@ -41,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             case 'update':
                 // Construct SQL query dynamically
                 $query = "UPDATE drivers SET license_id = ?, license_type = ?, firstname = ?, middlename = ?, lastname = ?, gender = ?, date_of_birth = ?, civil_status = ?, present_address = ?, permanent_address = ?, nationality = ?, contact_number = ?, username = ?, email = ?";
+
                 $params = [$license_id, $license_type, $firstname, $middlename, $lastname, $gender, $date_of_birth, $civil_status, $present_address, $permanent_address, $nationality, $contact_number, $username, $email];
                 
                 if ($password) {
@@ -86,8 +88,15 @@ if (isset($_GET['view_id'])) {
     $stmt = $pdo->prepare("SELECT * FROM drivers WHERE id = ?");
     $stmt->execute([$view_id]);
     $driverDetails = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Fetch offense records for the selected driver
+    $license_id = $driverDetails['license_id'];
+    $stmt = $pdo->prepare("SELECT datetime, offense_name, offense_rate, status FROM offense_records WHERE license_id = :license_id ORDER BY datetime DESC");
+    $stmt->execute(['license_id' => $license_id]);
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
+
 
 
 
@@ -451,6 +460,7 @@ if (isset($_GET['view_id'])) {
 </div>
 
 
+
         <?php endif; ?>
     </div>
 </div>
@@ -478,5 +488,7 @@ if (isset($_GET['view_id'])) {
 </script>
     <script src="../js/script.js"></script>
     <script src="../js/driverlistmodals.js"></script>
+    <script src="../js/driverdetailsprint.js"></script>
+    
 </body>
 </html>

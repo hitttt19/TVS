@@ -445,7 +445,15 @@ textarea {
     color: #333;
     margin-bottom: 10px;
 }
-
+/* General Print Styles */
+@media print {
+    /* Display the modal content for printing */
+    #viewDriverModal {
+        display: block !important;
+        position: static; /* Remove fixed positioning */
+        background-color: transparent; /* Remove modal background */
+    }
+}
 
 /* Fade-in animation for modal background */
 @keyframes fadeInBackground {
