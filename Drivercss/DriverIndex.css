@@ -1,0 +1,673 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+a:-webkit-any-link {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    color: floralwhite;
+    cursor: pointer;
+    text-decoration: none; 
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #004d40;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    transition: width 0.3s;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    transition: width 0.3s, height 0.3s;
+}
+
+.title {
+    font-size: 1.2em;
+    margin-left: 10px;
+    transition: opacity 0.3s;
+    flex: 1;
+    text-align: left;
+}
+
+.sidebar.collapsed .title {
+    opacity: 0;
+}
+
+/* Sidebar Navigation Items */
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 55px;
+}
+
+.nav-item {
+    padding: 1px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out;
+    color: #bbb; /* Default text color */
+    font-size: 16px;
+    border-radius: 20px; /* Rounded corners */
+}
+
+.nav-item .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    filter: brightness(0.8); /* Dim icons slightly */
+    transition: filter 0.3s ease-in-out, margin 0.3s;
+}
+
+.nav-item .text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+}
+
+.nav-item.active {
+    background-color: #00796b; /* Active background color */
+    color: #ffffff; /* Active text color */
+}
+
+.nav-item.active .icon {
+    filter: brightness(1); /* Highlight icon */
+}
+
+.nav-item:hover {
+    background-color: #00796b; /* Hover background color */
+    color: #ffffff; /* Hover text color */
+}
+
+.nav-item:hover .icon {
+    filter: brightness(1); /* Brighten icon */
+}
+
+.sidebar.collapsed .nav-item {
+    padding: 10px;
+}
+
+.sidebar.collapsed .icon {
+    margin-right: 0;
+}
+
+.sidebar.collapsed .text {
+    opacity: 0;
+    margin-left: -15px;
+}
+
+.nav-section {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
+}
+
+.sidebar.collapsed .nav-section .text {
+    opacity: 0;
+}
+
+.main-content {
+    flex: 1;
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-left: 250px;
+    transition: margin-left 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar.collapsed + .main-content {
+    margin-left: 60px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004d40;
+    color: white;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    transition: width 0.3s, left 0.3s;
+    z-index: 2;
+}
+
+.header.collapsed {
+    left: 60px;
+    width: calc(100% - 60px);
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.2em;
+    line-height: 60px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-right: 3rem;
+}
+
+.user-icon {
+    margin-right: 10px;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.user-menu img.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover;  /* Ensures the image fits nicely */
+    margin-right: 10px;
+    border: 2px solid #ddd;
+}
+
+.user-name {
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.user-menu:hover .user-dropdown {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+/* Dashboard */
+.dashboard {
+    margin-top: 80px;
+    display: flex; /* Use flex to center content */
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    height: calc(100vh - 80px); /* Ensure it takes up full available height */
+}
+
+.cards {
+    display: flex;
+    margin-top: 80px; /* Adjust margin for spacing */
+    flex-wrap: wrap; /* Allow cards to wrap onto the next line */
+    justify-content: center; /* Center cards horizontally */
+    align-items: center; /* Center cards vertically */
+    width: 100%; /* Full width to ensure proper centering */
+}
+
+.card {
+    margin: 20px; /* Margin between cards */
+    padding: 20px;
+    border-radius: 8px;
+    height: 150px;
+    width: 200px; /* Set a fixed width for uniformity */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s; /* Smooth scaling on hover */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Card Colors */
+.violet {
+    background-color: #673ab7;
+}
+
+.green {
+    background-color: #388e3c; /* Resolved offenses card */
+}
+
+.orange {
+    background-color: #ff9800; /* Pending offenses card */
+}
+
+.blue {
+    background-color: #2196f3; /* Total fines card */
+}
+
+.card-content {
+    text-align: center;
+}
+
+.card-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.card-value {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Help Desk Dropdown */
+.help-desk-dropdown {
+    display: none; /* Hide by default */
+    padding: 5px;
+    border-radius: 15px;
+    position: absolute; /* Position it below the Help Desk item */
+    background-color: white; /* Background color */
+    border: 1px solid #ccc; /* Border for the dropdown */
+    z-index: 1; /* Ensure it appears above other elements */
+}
+
+.nav-section:hover .help-desk-dropdown {
+    display: block; /* Show on hover */
+}
+
+.help-desk-dropdown a {
+    display: block; /* Stack links vertically */
+    padding: 10px;
+    text-decoration: none;
+    color: black; /* Link color */
+}
+
+.help-desk-dropdown a:hover {
+    background-color: #f0f0f0; /* Highlight on hover */
+}
+
+/* Mobile Sidebar */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -200px; /* Smaller sidebar width */
+    width: 200px; /* Reduced width */
+    height: 100%;
+    background-color: #004d40;
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 9999;
+    overflow-y: hidden; /* Allow scrolling if needed */
+    overflow-x: hidden;
+}
+
+.mobile-sidebar .logo-text {
+    font-size: 16px; /* Adjust text size */
+    color: white; /* Text color */
+    margin-left: 10px; /* Space between logo and text */
+    font-weight: bold; /* Optional: make the text bold */
+}
+
+/* Sidebar List Styles */
+.mobile-sidebar .nav-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 60px; /* Adjust space from the top */
+}
+
+.mobile-sidebar .nav-item {
+    padding: 1px 7px; /* Smaller padding for compactness */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px; /* Smaller font size for mobile */
+    border-bottom: 1px solid #fff; /* Optional, adds separation */
+    transition: background-color 0.3s ease;
+}
+
+.mobile-sidebar .nav-item:hover {
+    background-color: #00796b; /* Hover effect */
+}
+/* Active Nav Item */
+.mobile-sidebar .nav-item.active {
+    padding: 1px 7px; /* Reduced padding for active item */
+    background-color: #00796b; /* Highlight background for active item */
+}
+
+.mobile-sidebar .nav-item .icon {
+    width: 16px; /* Smaller icon size */
+    height: 16px;
+    margin-right: 8px; /* Reduced spacing between icon and text */
+}
+
+.mobile-sidebar .nav-item .text {
+    flex: 1;
+    white-space: nowrap; /* Prevent text overflow */
+    font-size: 12px; /* Adjust text size */
+}
+
+/* Mobile Sidebar Show */
+.mobile-sidebar.show {
+    left: 0;
+}
+/* Initially hide the hamburger icon when the sidebar is open */
+#hamburger.hidden {
+    display: none;
+}
+
+/* Hamburger Icon */
+.hamburger {
+    display: none; /* Hidden by default */
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 10000; /* Ensure it sits above other elements */
+}
+
+@media (max-width: 768px) {
+    .mobile-sidebar .hamburger {
+        display: block; /* Show hamburger inside mobile sidebar */
+    }
+
+    .sidebar {
+        display: none; /* Hide main sidebar on mobile */
+    }
+
+    .main-content {
+        margin-left: 0; /* Adjust main content for mobile */
+    }
+}
+
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.show {
+    display: block;
+    opacity: 1;
+}
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .header {
+        left: 0;
+        width: 100%;
+        padding: 0 10px; 
+    }
+
+    .header.collapsed {
+        left: 0; 
+        width: 100%; 
+    }
+
+    .header-left {
+        flex-direction: row; 
+        justify-content: space-between; 
+        width: 100%; 
+    }
+
+
+    .user-menu {
+        margin-right: 40px; 
+    }
+
+    .user-dropdown {
+        right: 0; 
+        min-width: 150px; 
+    }
+
+    .header {
+        height: 50px; 
+    }
+    .header h2 {
+        font-size: 1em;
+        margin-left: 60px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .header h2 {
+        font-size: 1em;
+        margin-right: 20px;
+    }
+
+    .header {
+        padding: 0 5px; 
+    }
+
+    .header-left {
+        flex-direction: column; 
+        justify-content: center; 
+    }
+
+    .user-dropdown {
+        min-width: 120px; 
+    }
+}
+
+
+
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 60px;
+        transition: width 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+        width: 60px; 
+    }
+
+    .sidebar-header {
+        justify-content: center;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .title {
+        display: none; 
+    }
+
+    .nav-item .text {
+        display: none; 
+    }
+    .main-content {
+        margin-left: 0;
+    }
+
+    .sidebar.collapsed + .main-content {
+        margin-left: 0;
+    }
+
+    .sidebar.collapsed:hover {
+        width: 250px;
+    }
+
+    .nav-item .icon {
+        margin-right: 0;
+    }
+
+    .sidebar.collapsed:hover .nav-item .text {
+        display: inline-block;
+        opacity: 1;
+    }
+
+    .sidebar.collapsed:hover .nav-item .icon {
+        margin-right: 15px;
+    }
+
+    .sidebar-toggle-btn {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #004d40;
+        color: white;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 3; 
+    }
+
+    .sidebar.collapsed .sidebar-toggle-btn {
+        display: block;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 60px; 
+    }
+
+    .sidebar.collapsed {
+        width: 60px;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-item .icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 0; 
+    }
+
+    .nav-item .text {
+        display: none;
+    }
+
+    .sidebar.collapsed .nav-item {
+        padding: 10px 10px; 
+    }
+
+    .main-content {
+        margin-left: 0; 
+    }
+}
+
+
+
+@media (max-width: 1024px) {
+    .card {
+        flex: 1 1 calc(50% - 20px); 
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        flex: 1 1 100%; 
+        margin-top: 20px;
+    }
+    
+    .card-icon-box {
+        width: 60px;  
+        height: 60px;
+    }
+    
+    .card-text {
+        font-size: 1.1em; 
+    }
+    
+    .card-value {
+        font-size: 1.4em;
+    }
+}

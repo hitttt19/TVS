@@ -1,0 +1,346 @@
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.notification {
+    padding: 20px;
+    background-color: #f9f9f9; 
+    margin-top: 80px;
+    border-top: 5px solid #004d40;
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification h2 {
+    font-size: 1.5em; 
+    color: #333; 
+    margin-bottom: 20px; /* Space below the title */
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+    
+}
+
+
+.notification-list h3 {
+    font-size: 1.5em; 
+    color: #333; 
+    margin-bottom: 15px; 
+    text-align: center; /* Center-align the subheading */
+}
+
+.notification-list ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0;
+}
+
+.notification-list {
+    max-height: 300px; /* Set the height for the scrollable section */
+    overflow-y: auto;  /* Enable vertical scrolling */
+}
+
+/* For WebKit-based browsers (Chrome, Safari) */
+.notification-list::-webkit-scrollbar {
+    width: 0;  /* Hides the scrollbar */
+    height: 0; /* Hides horizontal scrollbar */
+}
+
+/* For Firefox */
+.notification-list {
+    scrollbar-width: none; /* Hides scrollbar */
+}
+
+
+.notification-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.notification-list li:last-child {
+    border-bottom: none; /* Remove border from the last item */
+}
+
+.notification-list strong {
+    display: block;
+    margin-bottom: 5px; 
+    color: #000; 
+}
+
+.notification-list p {
+    margin: 0; /* Remove default margin */
+    color: #555; /* Subtle text color for content */
+}
+
+
+/* General styles for the letter */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.letter-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    flex: 2;
+    text-align: center;
+    color: #333;
+}
+
+.city-logo {
+    width: 100px; /* Adjust logo size */
+}
+
+hr {
+    margin: 20px 0;
+    border: 1px solid #ccc;
+}
+
+.letter-body {
+    margin: 20px 0;
+}
+
+.signature {
+    margin-top: 40px;
+    text-align: left;
+}
+
+/* Button styles */
+#openModal {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#openModal:hover {
+    background-color: #0056b3;
+}
+
+/* Modal styles */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.modal-content {
+    position: relative;
+    z-index: 1001;
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%; 
+    max-width: 800px;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-button {
+    background-color: mediumseagreen; 
+    color: white;        
+    border: none;          
+    padding: 10px 20px;    
+    text-align: center;     
+    text-decoration: none;  
+    display: inline-block;  
+    font-size: 16px;      
+    margin: 10px 2px;      
+    cursor: pointer;        
+    border-radius: 5px;   
+}
+
+.modal-button:hover {
+    background-color: rgb(0, 118, 139); 
+}
+
+.button-container {
+    text-align: right; 
+    margin-top: 20px; 
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Table styles */
+.citation-details {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.citation-details td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Additional styles for text */
+
+.letter-title {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 24px;
+    color: #333;
+}
+
+.date {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+/* Mobile Sidebar */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -200px; /* Smaller sidebar width */
+    width: 200px; /* Reduced width */
+    height: 100%;
+    background-color: #004d40;
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 9999;
+    overflow-y: hidden; /* Allow scrolling if needed */
+    overflow-x: hidden;
+}
+
+.mobile-sidebar .logo-text {
+    font-size: 16px; /* Adjust text size */
+    color: white; /* Text color */
+    margin-left: 10px; /* Space between logo and text */
+    font-weight: bold; /* Optional: make the text bold */
+}
+
+/* Sidebar List Styles */
+.mobile-sidebar .nav-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 60px; /* Adjust space from the top */
+}
+
+.mobile-sidebar .nav-item {
+    padding: 1px 7px; /* Smaller padding for compactness */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px; /* Smaller font size for mobile */
+    border-bottom: 1px solid #fff; /* Optional, adds separation */
+    transition: background-color 0.3s ease;
+}
+
+.mobile-sidebar .nav-item:hover {
+    background-color: #00796b; /* Hover effect */
+}
+/* Active Nav Item */
+.mobile-sidebar .nav-item.active {
+    padding: 1px 7px; /* Reduced padding for active item */
+    background-color: #00796b; /* Highlight background for active item */
+}
+
+.mobile-sidebar .nav-item .icon {
+    width: 16px; /* Smaller icon size */
+    height: 16px;
+    margin-right: 8px; /* Reduced spacing between icon and text */
+}
+
+.mobile-sidebar .nav-item .text {
+    flex: 1;
+    white-space: nowrap; /* Prevent text overflow */
+    font-size: 12px; /* Adjust text size */
+}
+
+/* Mobile Sidebar Show */
+.mobile-sidebar.show {
+    left: 0;
+}
+/* Initially hide the hamburger icon when the sidebar is open */
+#hamburger.hidden {
+    display: none;
+}
+
+/* Hamburger Icon */
+.hamburger {
+    display: none; /* Hidden by default */
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 10000; /* Ensure it sits above other elements */
+}
+
+@media (max-width: 768px) {
+    .mobile-sidebar .hamburger {
+        display: block; /* Show hamburger inside mobile sidebar */
+    }
+
+    .sidebar {
+        display: none; /* Hide main sidebar on mobile */
+    }
+
+    .main-content {
+        margin-left: 0; /* Adjust main content for mobile */
+    }
+}
+
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.show {
+    display: block;
+    opacity: 1;
+}

@@ -1,0 +1,170 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e2e4e7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+header {
+    background-color: #0A3B31;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+
+/* Logo section styling */
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+.logo a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.RDtxt {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+/* Container Styles */
+.container {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Heading Styles */
+h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;  /* Reduced margin */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Form Label Styles */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+}
+
+/* Input Fields */
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 12px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input Focus Effect */
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+    outline: none;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0b463a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background-color: #06312a; /* Keep text color white */
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #388e3c;
+    transform: translateY(0);
+}
+
+/* Message Styles */
+.message {
+    margin-top: 20px;
+}
+
+.message p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* Success and Error Message */
+.error {
+    color: #f44336;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.success {
+    color: #4CAF50;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    input[type="password"],
+    input[type="email"],
+    button {
+        font-size: 14px;
+    }
+}

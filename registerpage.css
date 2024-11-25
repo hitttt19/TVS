@@ -1,0 +1,382 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(image/trf.jpg) no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Prevent the scrollbar from appearing */
+    position: relative; /* Ensure the overlay is positioned relative to the body */
+}
+
+.overlay {
+    position: absolute; /* Position absolutely to cover the background */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(4, 87, 73, 0.8); /* Semi-transparent overlay */
+    padding: 50px;
+    text-align: center;
+    color: #585858;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    background-color: #0A3B31;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+.logo a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.RDtxt {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+    transition: transform 0.3s ease;
+}
+
+nav ul li:hover {
+    transform: scale(1.05);
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.container {
+    display: flex;
+    width: 800px;
+    max-width: 90%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 70px;
+    margin-left: 50px;
+}
+
+.left-section {
+    width: 40%;
+    background: linear-gradient(to right, #0A3B31, #106151);
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+.left-section h2 {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.left-section p {
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+.icon {
+    width: 50px;
+    margin: 20px 0;
+}
+
+.login-btn {
+    padding: 10px 20px;
+    background-color: rgba(0, 77, 64, 0.8);
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid rgb(143, 143, 143);
+}
+.login-btn:hover {
+    background-color: #06312a;
+    transform: translateY(-2px);
+}
+
+.right-section {
+    width: 60%;
+    background-color: #ffffff;
+    padding: 30px;
+}
+
+.right-section h2 {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0d4b3e;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+form input, form select, form textarea {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.next-btn, .prev-btn, .register-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.next-btn, .register-btn {
+    background-color: #0b463a;
+}
+
+.next-btn:hover{
+    background-color:#09382f ;
+}
+
+.prev-btn {
+    background-color: #ddd;
+    color: #333;
+}
+.prev-btn:hover{
+    background-color: #c4c3c3;
+}
+
+/* Style for the file upload label */
+.file-upload {
+    display: flex;
+    cursor: pointer;
+    margin-bottom: 10px;
+    align-content: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+  
+  .file-upload i {
+    margin-right: 8px; /* Space between the icon and the text */
+    font-size: 16px; /* Adjust icon size */
+  }
+  
+  .file-upload input[type="file"] {
+    display: none; /* Hide the default file input field */
+  }
+  
+  .file-upload span {
+    margin-left: 10px; /* Space between the icon and file name */
+    font-size: 14px; /* Adjust the font size of the file name */
+    color: #333; /* Color for the file name */
+  }
+  
+  .file-upload:hover {
+    color: #0056b3; /* Optional: Add a hover effect on the label */
+  }
+  
+  .file-upload:active {
+    color: #003366; /* Optional: Active effect for when clicked */
+  }
+  
+  
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+.hamburger{
+    display: none;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #0A3B31;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+}
+
+.sidebar.active {
+    display: block;
+    transform: translateX(0);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar-header {
+    padding: 10px 20px;
+    display: flex; 
+    align-items: center; 
+    justify-content: start; 
+    background-color: #0A3B31;
+    border-bottom: 1px solid;
+}
+
+.sidebar-logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.sidebar-title {
+    color: white;
+    font-size: 16px;
+    margin: 0;
+}
+
+.sidebar ul li:hover{
+    background-color: #00796b;
+    cursor: pointer;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+#hamburger.active {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: #0A3B31;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+        color: #fff;
+        font-size: 24px;
+        position: relative;
+        left: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .overlay {
+        padding: 20px;
+        width: 90%;
+        height: auto; 
+    }
+
+    .main-logo {
+        width: 100px;
+    }
+
+    .overlay h1, .overlay h2 {
+        font-size: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo {
+        display: none;
+    }
+
+    .sidebar {
+        display: block;
+    }
+}

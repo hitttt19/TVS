@@ -1,0 +1,359 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(image/trf.jpg) no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Prevent the scrollbar from appearing */
+    position: relative; /* Ensure the overlay is positioned relative to the body */
+}
+.overlay {
+    position: absolute; /* Position absolutely to cover the background */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(4, 87, 73, 0.8);
+    padding: 50px;
+    text-align: center;
+    color: #585858;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+header {
+    background-color: #0A3B31;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+
+/* Logo section styling */
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+.logo a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.RDtxt {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Navigation section styling */
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+    transition: transform 0.3s ease;
+}
+
+nav ul li:hover {
+    transform: scale(1.05);
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Container styling for the form overlay */
+.container {
+    display: flex;
+    width: 650px;
+    max-width: 90%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 70px; /* Pushes the container down from header */
+    margin-left: 35px;
+}
+
+/* Left section (welcome message) */
+.left-section {
+    width: 40%;
+    background: linear-gradient(to right, #0A3B31, #106151);
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+.left-section h2 {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.left-section p {
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+.icon {
+    width: 60px;
+    margin: 20px 0;
+}
+
+.register-btn {
+    padding: 10px 20px;
+    background-color: rgba(0, 77, 64, 0.8);
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid rgb(143, 143, 143);
+}
+.register-btn:hover {
+    background-color: #06312a; /* Keep text color white */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+
+/* Login container styling */
+.login-container {
+    width: 60%;
+    background-color: #ffffff;
+    padding: 30px;
+    text-align: center;
+}
+
+.login-container img {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.login-container .modal-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #06312a;
+}
+
+.login-container .modal-subtitle {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+form input {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    background-color: #0b463a;
+}
+
+form button:hover {
+    background-color: #09382f;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 10px;
+    color: #0A3B31;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.password-group {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.sidebar {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    top: 0;
+    left: 0;
+    width: 250px; /* Sidebar width */
+    height: 100%; /* Full height */
+    background-color: #0A3B31; /* Background color */
+    z-index: 1000; /* Sit on top */
+    overflow-y: auto; /* Enable scrolling */
+    transition: transform 0.3s ease; /* Animation for opening/closing */
+    transform: translateX(-100%); /* Hide it off-screen */
+}
+
+.sidebar.active {
+    display: block; /* Show sidebar */
+    transform: translateX(0); /* Slide in */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 15px; /* Padding for items */
+}
+
+.sidebar ul li a {
+    color: #fff; /* Text color */
+    text-decoration: none; /* No underline */
+    font-size: 16px; /* Font size */
+    display: flex; /* Flexbox for icon and text */
+    align-items: center; /* Center items vertically */
+}
+
+.sidebar ul li a i {
+    margin-right: 10px; /* Space between icon and text */
+}
+/* Sidebar Header Styles */
+.sidebar-header {
+    padding: 10px 20px;
+    display: flex; /* Use flexbox for horizontal layout */
+    align-items: center; /* Vertically center the items */
+    justify-content: start; /* Align items to the left */
+    background-color: #0A3B31; /* Change to your desired color */
+    border-bottom: 1px solid;
+}
+
+.sidebar-logo {
+    width: 50px; /* Adjust logo size */
+    height: 50px; /* Adjust logo size */
+    margin-right: 10px; /* Space between logo and text */
+}
+
+.sidebar-title {
+    color: white; /* Text color */
+    font-size: 16px; /* Adjust font size */
+    margin: 0; /* Remove default margin */
+}
+.sidebar ul li:hover{
+    background-color: #00796b;
+    cursor: pointer;
+}
+.hamburger {
+    display: none; /* Initially hidden bago add */
+    cursor: pointer;
+}
+#hamburger.active {
+    display: block; /* or whatever you want */
+}
+
+@media (max-width: 768px) {
+    nav {
+        display: none; /* Hide the nav initially on mobile */
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: #0A3B31;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+
+    nav.active {
+        display: flex; /* Show nav when active */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger icon on mobile */
+        color: #fff;
+        font-size: 24px;
+        position: relative;
+        left: 20px;
+    }
+}
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .overlay {
+        padding: 20px;
+        width: 90%;
+        height: auto; 
+    }
+
+    .main-logo {
+        width: 100px;
+    }
+
+    .overlay h1, .overlay h2 {
+        font-size: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    /* Hide logo and text in the header */
+    .logo {
+        display: none; /* Hides the logo and text in the header */
+    }
+
+    /* Sidebar styles for smaller screens */
+    .sidebar {
+        display: block; /* Show sidebar */
+    }
+}
+

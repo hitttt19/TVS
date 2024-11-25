@@ -1,0 +1,798 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+a:-webkit-any-link {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    color: floralwhite;
+    cursor: pointer;
+    text-decoration: none; 
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #004d40;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    transition: width 0.3s;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+}
+.sidebar::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Edge */
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    transition: width 0.3s, height 0.3s;
+}
+
+.title {
+    font-size: 1.2em;
+    margin-left: 10px;
+    transition: opacity 0.3s;
+    flex: 1;
+    text-align: left;
+}
+
+.sidebar.collapsed .title {
+    opacity: 0;
+}
+
+
+/* .nav-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    margin-top: 55px;
+}
+
+.nav-item {
+    padding: 1px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+
+.nav-item .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    transition: margin-right 0.5s;
+}
+
+
+.nav-item .text {
+    flex: 1;
+    white-space: nowrap;
+    transition: opacity 0.3s, margin 0.3s;
+}
+
+.sidebar.collapsed .nav-item {
+    padding: 10px 15px; 
+}
+
+.sidebar.collapsed .icon {
+    margin-right: 0; 
+    transition: 0.5s;
+}
+
+.sidebar.collapsed .text {
+    opacity: 0; 
+    margin-left: -15px; 
+}
+
+
+.nav-item.active, .nav-item:hover {
+    background-color: #00796b; 
+}
+
+
+.nav-item.active .text, .nav-item:hover .text {
+    font-weight: bold;
+}
+
+.nav-section {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #bbb;
+    transition: opacity 0.3s;
+} */
+
+.sidebar.collapsed .nav-section .text {
+    opacity: 0;
+}
+
+.main-content {
+    flex: 1;
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-left: 250px;
+    transition: margin-left 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar.collapsed + .main-content {
+    margin-left: 60px;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #004d40;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    transition: width 0.3s;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none; /* Hides scrollbar for Chrome, Safari, and Edge */
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Logo styles */
+.logo {
+    width: 70px;
+    height: 70px;
+    transition: width 0.3s, height 0.3s;
+}
+
+/* Sidebar title */
+.title {
+    font-size: 1.2em;
+    margin-left: 10px;
+    transition: opacity 0.3s;
+    flex: 1;
+    text-align: left;
+}
+
+.sidebar.collapsed .title {
+    opacity: 0; /* Hide the title when collapsed */
+}
+
+/* Sidebar Navigation Items */
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 55px;
+}
+
+/* Navigation Item Styles */
+.nav-item {
+    padding: 1px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out;
+    color: #bbb; /* Default text color */
+    font-size: 16px;
+    border-radius: 20px; /* Rounded corners */
+}
+
+/* Icon Spacing */
+.nav-item .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    filter: brightness(0.8); /* Dim icons slightly */
+}
+
+/* Text Spacing */
+.nav-item .text {
+    flex: 1;
+    white-space: nowrap;
+    transition: opacity 0.3s, margin 0.3s;
+}
+
+.sidebar.collapsed .nav-item {
+    padding: 10px 15px; /* Adjust padding when collapsed */
+}
+
+.sidebar.collapsed .icon {
+    margin-right: 0; 
+    transition: 0.5s;
+}
+
+.sidebar.collapsed .text {
+    opacity: 0; 
+    margin-left: -15px; 
+}
+
+/* Active and Hover Styles */
+.nav-item.active, .nav-item:hover {
+    background-color: #00796b; /* Background change on hover */
+}
+
+
+/* Sidebar Section */
+.nav-section {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    color: #bbb;
+    transition: opacity 0.3s;
+}
+
+.sidebar.collapsed .nav-section .text {
+    opacity: 0;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-left: 250px;
+    transition: margin-left 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar.collapsed + .main-content {
+    margin-left: 60px;
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004d40;
+    color: white;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    transition: width 0.3s, left 0.3s;
+    z-index: 2;
+}
+
+.header.collapsed {
+    left: 60px;
+    width: calc(100% - 60px);
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.2em;
+    line-height: 60px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    position: sticky; /* Makes .header-left sticky */
+    top: 0;           /* Sticks it to the top of the viewport */
+    z-index: 3;       /* Ensures it stays above other content if needed */
+}
+.user-menu {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-right: 3rem;
+}
+
+.user-icon {
+    margin-right: 10px;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    color: black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.user-menu:hover .user-dropdown {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+
+.reports {
+    margin-top: 80px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid rgb(85, 82, 82);
+    border-top: 5px solid #004d40;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reports h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+}
+
+.report-controls {
+    display: flex;
+    flex-direction: column; /* Stack form and buttons vertically */
+    gap: 20px; /* Adds space between form and buttons */
+}
+
+.date-range {
+    display: flex;
+    flex-direction: column; /* Stack labels and inputs vertically */
+    gap: 10px;
+}
+
+.date-range label {
+    font-weight: bold;
+}
+
+.date-range input,
+.date-range select {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    justify-content: flex-start; /* Align buttons to the left */
+    margin-top: 10px;
+}
+
+.filter-btn, .print-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.print-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.filter-btn:hover {
+    background-color: #006fce;
+}
+
+.print-btn:hover {
+    background-color: rgb(26, 145, 16);
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal structure */
+#printModal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Background dimming */
+}
+
+/* Modal content */
+.modal-content {
+    position: relative;  /* Position relative to the modal content */
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 1000px;
+    max-height: 80%;
+    overflow-y: hidden; /* Prevent scrolling for the modal content itself */
+}
+
+/* Close button inside the modal */
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;  /* Position relative to the modal content */
+    top: 10px;           /* Distance from the top */
+    right: 20px;         /* Distance from the right */
+    cursor: pointer;     /* Pointer cursor when hovered */
+}
+
+/* Hover and focus effect for the close button */
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Table inside the print modal */
+#printableArea {
+    max-height: 500px; /* Adjust height as necessary */
+    overflow-y: auto;  /* Enables vertical scroll for the table */
+}
+
+/* Styling for the table itself */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Sticky table header */
+table thead {
+    position: sticky;
+    top: 0;
+    background-color: #f2f2f2;  /* Optional: background color for the sticky header */
+    z-index: 1;  /* Ensures header stays above the table data */
+}
+
+/* Table cells styling */
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2; /* Header background color */
+    font-weight: bold;
+}
+
+/* Print button styling */
+.print-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.print-btn:hover {
+    background-color: #45a049;
+}
+
+/* Adjustments for print view */
+@media print {
+    .modal {
+        display: none;
+    }
+    .print-btn {
+        display: none;
+    }
+    #printableArea {
+        display: block;
+    }
+}
+
+    .filter-btn:hover  {
+        background-color: #006fce;
+    }
+    .print-btn:hover{
+        background-color:rgb(26, 145, 16) ;
+    }
+
+    .report-table-container {
+        overflow-x: auto;  /* Enable horizontal scroll */
+        overflow-y: scroll; /* Hide vertical scroll */
+        max-height: 300px;  /* Adjust height for mobile view */
+    }
+
+    
+    .table-scroll::-webkit-scrollbar {
+        width: 0;  /* Hides the scrollbar */
+        height: 0; /* Hides horizontal scrollbar */
+    }
+    
+    .table-scroll {
+        scrollbar-width: none; /* Hides scrollbar */
+    }
+
+    .table {
+        margin-top: 10px;
+        width: 100%;
+        border-collapse: collapse; 
+    }
+
+    .table th, .table td {
+        padding: 12px; 
+        text-align: left; 
+        border: 1px solid #ddd; 
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+        position: sticky;
+        top: 0; 
+        z-index: 2;
+    }
+
+    .table tr:hover {
+        background-color: #f5f5f5;
+    }
+
+
+    .search-container {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .search-container label {
+        font-weight: bold;
+    }
+
+    .search-container input {
+        padding: 8px;  /* Slightly increased padding for a modern look */
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+
+    .search-container form {
+        display: flex;
+        align-items: center;
+        width: 100%; /* Ensure full width */
+    }
+
+
+    .search-btn {
+        background-color: gainsboro; /* Button background color */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 10px 15px; /* Padding for button */
+        cursor: pointer; /* Pointer on hover */
+        margin-left: 10px; /* Spacing between input and button */
+        display: flex; /* Center the icon */
+        align-items: center;
+        transition: background-color 0.3s ease; /* Transition for hover effect */
+    }
+
+    .search-btn:hover {
+        background-color: rgb(168, 168, 168); /* Darker background on hover */
+    }
+
+    .search-btn img {
+        width: 20px; /* Adjust icon size */
+        height: 20px; /* Maintain aspect ratio */
+    }
+
+    .Resolved {
+        color: #43a047;
+    }
+
+    .Unsettled {
+        color: #9e9e9e;
+    }
+
+    .Pending {
+        color: #e53935;
+    }
+
+    /* Responsive Design */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .title {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        flex: 1 1 100%;
+        margin-top: 20px;
+    }
+    
+    .card-icon-box {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .card-text {
+        font-size: 1.1em;
+    }
+    
+    .card-value {
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -60px;
+        width: 60px;
+        height: 100%;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+        left: 0;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .title, .nav-section .text {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .header {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        left: 0;
+        width: 100%;
+        padding: 0 10px; 
+    }
+
+    .header h2{
+        font-size: 1em;
+        margin-right: 60px;
+    }
+
+
+    .header.collapsed {
+        left: 0; 
+        width: 100%; 
+    }
+
+    .header-left {
+        flex-direction: row; 
+        justify-content: space-between; 
+        width: 100%; 
+    }
+
+    .user-menu {
+        font-size: 1em;
+        margin-right: 40px;
+    }
+
+    .user-dropdown {
+        right: 0; 
+        min-width: 150px; 
+    }
+
+    .header {
+        height: 50px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .header h2 {
+        font-size: 1em;
+    }
+
+    .header {
+        padding: 0 5px; 
+    }
+
+    .header-left {
+        flex-direction: column; 
+        justify-content: center; 
+    }
+
+    .user-dropdown {
+        min-width: 120px; 
+    }
+}

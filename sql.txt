@@ -1,0 +1,136 @@
+
+CREATE TABLE drivers (
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    license_id VARCHAR(255) NOT NULL, 
+    license_type VARCHAR(50) NOT NULL, 
+    firstname VARCHAR(255) NOT NULL, 
+    middlename VARCHAR(255), 
+    lastname VARCHAR(255) NOT NULL, 
+    gender ENUM('Male', 'Female', 'Other') NOT NULL, 
+    date_of_birth DATE NOT NULL, 
+    civil_status ENUM('Single', 'Married', 'Divorced', 'Widowed', 'Separated') NOT NULL, 
+    present_address TEXT NOT NULL, 
+    permanent_address TEXT NOT NULL, 
+    nationality VARCHAR(100) NOT NULL, 
+    contact_number VARCHAR(15) NOT NULL CHECK (CHAR_LENGTH(contact_number) = 11), 
+    username VARCHAR(255) UNIQUE NOT NULL, 
+    email VARCHAR(255) UNIQUE NOT NULL, 
+    password CHAR(60) NOT NULL, 
+    photo VARCHAR(255),
+    id_front_photo VARCHAR(255) DEFAULT NULL, 
+    id_back_photo VARCHAR(255) DEFAULT NULL, 
+    id_photo_status ENUM('approved', 'rejected', 'pending') DEFAULT 'pending',  -- New column for status tracking
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE traffic_enforcers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    badge_id VARCHAR(50) NOT NULL UNIQUE,  -- Assuming badge_id should be unique
+    firstname VARCHAR(50) NOT NULL,
+    middlename VARCHAR(50),
+    lastname VARCHAR(50) NOT NULL,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    date_of_birth DATE NOT NULL,
+    present_address TEXT NOT NULL,
+    permanent_address TEXT NOT NULL,
+    contact_number VARCHAR(20) NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL, -- Store hashed password
+    photo VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create table for Admins
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255) NOT NULL, -- Store password as plain text
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert into Admins
+INSERT INTO admins (username, email, password) VALUES 
+('admin', 'admin@gmail.com', 'admin'); 
+
+-- Create table for Offenses
+CREATE TABLE offenses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    rate DECIMAL(10, 2) NOT NULL
+);
+
+-- Create table for Offense Records
+CREATE TABLE offense_records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ticket_no VARCHAR(50) NOT NULL UNIQUE,  -- Unique ticket number
+    license_id VARCHAR(50) NOT NULL,        -- Reference to the driver's license ID
+    offense_name VARCHAR(100) NOT NULL,     -- Name of the offense
+    offense_rate DECIMAL(10, 2) NOT NULL,   -- Rate/penalty for the offense
+    traffic_enforcer VARCHAR(100) NOT NULL,  -- Name of the traffic enforcer
+    status ENUM('Pending', 'Resolved', 'Unsettled') NOT NULL,  -- Status of the offense record
+    enforcer_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Automatically set creation timestamp
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Automatically set update timestamp
+    FOREIGN KEY (enforcer_id) REFERENCES traffic_enforcers(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE contacts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    service_provider ENUM('TM', 'Globe', 'GOMO', 'Smart', 'Sun', 'TNT', 'DITO') NOT NULL,
+    mobile_no VARCHAR(20) NOT NULL,
+    service_type ENUM('Towing', 'Traffic Law Consultation', 'Traffic School', 
+                      'Vehicle Repair Services', 'Insurance Services') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CHECK (mobile_no REGEXP '^[+0-9]{1}[0-9]{10}$')  -- Optional check to allow + followed by 11 digits
+);
+
+
+-- Create table for Announcements
+CREATE TABLE announcements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE Settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    system_name VARCHAR(255) NOT NULL,
+    system_short_name VARCHAR(100) NOT NULL,
+    about_us TEXT NOT NULL,
+    logo VARCHAR(255), -- Store the path to the logo image
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    driver_id INT,
+    message TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ticket_no VARCHAR(50),
+    status ENUM('unread', 'read') DEFAULT 'unread',
+    FOREIGN KEY (driver_id) REFERENCES drivers(id) ON DELETE CASCADE
+);
+
+
+
+
+CREATE TABLE password_reset_temp (
+    email VARCHAR(255) NOT NULL,  -- User's email address
+    `key` VARCHAR(255) NOT NULL,  -- Unique key for password reset
+    expDate DATETIME NOT NULL,    -- Expiration date of the reset link (e.g., 24 hours from creation)
+    PRIMARY KEY (email, `key`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

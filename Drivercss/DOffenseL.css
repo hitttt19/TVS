@@ -1,0 +1,241 @@
+.offenseL {
+    margin-top: 80px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid rgb(85, 82, 82);
+    border-top: 5px solid #004d40;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.offenseL h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+}
+
+.offenseL-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.offenseL-controls label, .offenseL-controls select, .offenseL-controls input, .offenseL-controls button {
+    font-size: 1em;
+}
+
+.offenseL-table-container {
+    overflow-x: auto;
+}
+
+.offenseL-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.offenseL-table th, .offenseL-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.offenseL-table th {
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: bold;
+}
+
+.offenseL-table td {
+    color: #333;
+    background-color: #fff;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination .previous, .pagination .next, .pagination .page-number {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination .previous:hover, .pagination .next:hover, .pagination .page-number:hover {
+    background-color: #0056b3;
+}
+
+.pagination .page-number.active {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.search-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-container label {
+    font-weight: bold;
+}
+
+.search-container input {
+    padding: 8px;  /* Slightly increased padding for a modern look */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Ensure full width */
+}
+
+
+.search-btn {
+    background-color: gainsboro; /* Button background color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for button */
+    cursor: pointer; /* Pointer on hover */
+    margin-left: 10px; /* Spacing between input and button */
+    display: flex; /* Center the icon */
+    align-items: center;
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.search-btn:hover {
+    background-color: rgb(168, 168, 168); /* Darker background on hover */
+}
+
+.search-btn img {
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Maintain aspect ratio */
+}
+
+/* Mobile Sidebar */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -200px; /* Smaller sidebar width */
+    width: 200px; /* Reduced width */
+    height: 100%;
+    background-color: #004d40;
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 9999;
+    overflow-y: hidden; /* Allow scrolling if needed */
+    overflow-x: hidden;
+}
+
+.mobile-sidebar .logo-text {
+    font-size: 16px; /* Adjust text size */
+    color: white; /* Text color */
+    margin-left: 10px; /* Space between logo and text */
+    font-weight: bold; /* Optional: make the text bold */
+}
+
+/* Sidebar List Styles */
+.mobile-sidebar .nav-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 60px; /* Adjust space from the top */
+}
+
+.mobile-sidebar .nav-item {
+    padding: 1px 7px; /* Smaller padding for compactness */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px; /* Smaller font size for mobile */
+    border-bottom: 1px solid #fff; /* Optional, adds separation */
+    transition: background-color 0.3s ease;
+}
+
+.mobile-sidebar .nav-item:hover {
+    background-color: #00796b; /* Hover effect */
+}
+/* Active Nav Item */
+.mobile-sidebar .nav-item.active {
+    padding: 1px 7px; /* Reduced padding for active item */
+    background-color: #00796b; /* Highlight background for active item */
+}
+
+.mobile-sidebar .nav-item .icon {
+    width: 16px; /* Smaller icon size */
+    height: 16px;
+    margin-right: 8px; /* Reduced spacing between icon and text */
+}
+
+.mobile-sidebar .nav-item .text {
+    flex: 1;
+    white-space: nowrap; /* Prevent text overflow */
+    font-size: 12px; /* Adjust text size */
+}
+
+/* Mobile Sidebar Show */
+.mobile-sidebar.show {
+    left: 0;
+}
+/* Initially hide the hamburger icon when the sidebar is open */
+#hamburger.hidden {
+    display: none;
+}
+
+/* Hamburger Icon */
+.hamburger {
+    display: none; /* Hidden by default */
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 10000; /* Ensure it sits above other elements */
+}
+
+@media (max-width: 768px) {
+    .mobile-sidebar .hamburger {
+        display: block; /* Show hamburger inside mobile sidebar */
+    }
+
+    .sidebar {
+        display: none; /* Hide main sidebar on mobile */
+    }
+
+    .main-content {
+        margin-left: 0; /* Adjust main content for mobile */
+    }
+}
+
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.show {
+    display: block;
+    opacity: 1;
+}

@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e2e4e7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the body fills the viewport height */
+}
+
+header {
+    background-color: #0A3B31;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+/* Logo section styling */
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.RDtxt {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Main container styling */
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 100px; /* Space for the fixed header */
+    border-radius: 8px;
+    box-sizing: border-box; /* Includes padding and borders in width/height calculations */
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0b463a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #06312a; /* Keep text color white */
+}
+
+.message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.message p {
+    font-size: 14px;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}

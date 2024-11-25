@@ -1,0 +1,661 @@
+.drivers-list {
+    margin-top: 80px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid rgb(85, 82, 82);
+    border-top: 5px solid #004d40;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.drivers-list h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.controls label, .controls select, .controls input, .controls button {
+    font-size: 1em;
+}
+
+.controls .create-new {
+    background-color: #1983e6; /* Updated to match offense records */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.controls .create-new:hover {
+    background-color: #0375d3;
+}
+
+.table-container {
+    max-height: 500px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: auto; /* Hide horizontal scrolling */
+    border: 1px solid #ccc; /* Optional: add border around the table */
+
+}
+
+.table-container::-webkit-scrollbar {
+    width: 0;  /* Hides the scrollbar */
+    height: 0; /* Hides horizontal scrollbar */
+}
+
+.table-container {
+    scrollbar-width: none; /* Hides scrollbar */
+}
+
+.table {
+    width: 100%; /* Make sure table takes full width */
+    border-collapse: collapse; /* Optional: Remove space between borders */
+}
+
+.table th, .table td {
+    padding: 10px; /* Add some padding */
+    text-align: left; /* Align text to the left */
+}
+
+.table thead th {
+    background-color: #f2f2f2; /* Optional: background color for header */
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Align it to the top */
+    z-index: 10; /* Ensure it's above the other rows */
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* Change to your preferred hover color */
+    cursor: pointer; /* Change cursor to pointer for better UX */
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination .previous, .pagination .next, .pagination .page-number {
+    background-color: #ddd;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination .previous:hover, .pagination .next:hover, .pagination .page-number:hover {
+    background-color: #ccc;
+}
+
+.pagination .page-number.active {
+    background-color: #28a745; /* Updated to match offense records */
+    color: white;
+}
+
+.pagination .page-number.active:hover {
+    background-color: #218838;
+}
+
+/* Modal Background */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: fadeInBackground 0.5s ease forwards; /* Adding fade-in animation */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    z-index: 1001;
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s ease forwards; /* Adding slide-in animation */
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form Labels */
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Form Inputs */
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Flexbox for two-column layout */
+.modal-content form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1 1 calc(50% - 20px); /* Two-column layout */
+    min-width: 200px; /* Ensure fields are not too narrow */
+}
+
+textarea {
+    width: 100%; /* Ensure textareas expand to full width */
+}
+
+/* Form Button */
+.modal-content button {
+    /* background-color: #0375d3;
+    color: white;
+    border: none; */
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.modal-content button:hover {
+    background-color: #1983e6;
+}
+
+/* ID Photos Section */
+.id-photos {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.photo-left, .photo-right {
+    width: 48%; /* Ensure the images are displayed side by side */
+}
+
+.id-photo {
+    width: 100%;
+    height: auto;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.id-photo:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+/* Optional: Default image */
+#defimage {
+    width: 100%;
+    height: auto;
+}
+
+
+/* Button Styling */
+.approval-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.approve-btn, .reject-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.approve-btn {
+    background-color: green;
+    color: white;
+}
+
+.reject-btn {
+    background-color: red;
+    color: white;
+}
+
+.approve-btn:hover .reject-btn:hover {
+    opacity: 0.8;
+}
+
+.profile-photo-container {
+    position: relative;
+}
+
+.verified-label,
+.not-verified-label,
+.pending-label {
+    position: absolute;
+    bottom: 22%;
+    left: 35%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.verified-label {
+    background-color: green;
+}
+
+.not-verified-label {
+    background-color: red;
+}
+
+.pending-label {
+    background-color: orange;
+}
+
+
+
+/* Additional Styles */
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.modal-content textarea {
+    resize: vertical;
+}
+
+/* Fade-in animation for modal background */
+@keyframes fadeInBackground {
+    from { 
+        background-color: rgba(0, 0, 0, 0); 
+    }
+    to { 
+        background-color: rgba(0, 0, 0, 0.4); 
+    }
+}
+
+/* Slide-in animation for modal content */
+@keyframes slideIn {
+    from { 
+        transform: translateY(-50px); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+}
+
+/* Fade-out animation for closing modal */
+@keyframes fadeOutBackground {
+    from { 
+        background-color: rgba(0, 0, 0, 0.4); 
+    }
+    to { 
+        background-color: rgba(0, 0, 0, 0); 
+    }
+}
+
+/* Slide-out animation for closing modal content */
+@keyframes slideOut {
+    from { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+    to { 
+        transform: translateY(-50px); 
+        opacity: 0; 
+    }
+}
+
+/* Modal Background */
+#viewDriverModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+/* Modal Content */
+#viewDriverModal .modal-content {
+    position: relative;
+    background-color: #ffffff;
+    margin: 2% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 900px; /* Larger width */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+}
+
+/* Modal Header */
+#viewDriverModal .modal-header {
+    display: flex;
+    justify-content: left; /* Center the title */
+    align-items: left;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #004d40; /* Header line */
+}
+
+/* Header Title */
+#viewDriverModal .modal-header h2 {
+    font-size: 20px;
+    font-weight: bold;  
+    color: #333;
+}
+
+/* Print Button - Positioned in the top-left corner */
+#viewDriverModal .print-btn {
+    position: absolute;
+    right: 85px; /* Align to the far left */
+    top: 100%;
+    height: 5vh;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 15px; /* Adjust padding for width */
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: auto; /* Adjust width to fit the content */
+}
+
+/* Styling for the icon and text */
+#viewDriverModal .print-btn .icon {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+#viewDriverModal .print-btn .text {
+    font-size: 14px;
+}
+/* Hover effect for the print button */
+#viewDriverModal .print-btn:hover {
+    background-color: #094688; /* Change background to red on hover */
+    color: #fff; /* Keep text white */
+}
+
+/* Close Button - Positioned in the top-right corner */
+#viewDriverModal .close {
+    position: absolute;
+    right: 2px; /* Align to the far right */
+    top: 100%;
+    transform: translateY(-50%);
+    background-color: #000000;
+    color: #fff; /* White text for contrast */
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    height: 5vh;
+    width: auto; /* Adjust width to fit content */
+    display: flex;
+    align-items: center;
+    text-align: left; /* Align the text to the left */
+    padding: 0 10px; /* Add some space around the text */
+}
+
+/* Styling for the icon and text */
+#viewDriverModal .close .icon {
+    margin-right: 8px; /* Space between the icon and the text */
+}
+
+#viewDriverModal .close .text {
+    font-size: 14px;
+}
+/* Hover effect for the close button */
+#viewDriverModal .close:hover {
+    background-color: #bb7575; /* Change background to red on hover */
+    color: #fff; /* Keep text white */
+}
+
+/* Container Section (for each separate container) */
+.container-section {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 40px;
+    background-color: #f9f9f9;
+}
+
+/* Driver Info Section */
+.driver-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* Info Left Section */
+.driver-info .info-left {
+    flex: 3;
+}
+
+.driver-info .info-left p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Profile Photo Styling */
+.driver-info .info-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.driver-info .profile-photo {
+    width: 150px; /* Set a fixed width */
+    height: 150px; /* Set height equal to width for a circular shape */
+    border: 1px solid #ddd;
+    border-radius: 50%; /* Make the photo circular */
+    object-fit: cover; /* Ensure the image covers the circle without distortion */
+}
+
+
+/* Offense Records Table */
+.offense-records {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+.offense-records th,
+.offense-records td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.offense-records th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.offense-records td {
+    color: #333;
+}
+
+/* Section Title */
+.container-section h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+/* General Print Styles */
+@media print {
+    /* Display the modal content for printing */
+    #viewDriverModal {
+        display: block !important;
+        position: static; /* Remove fixed positioning */
+        background-color: transparent; /* Remove modal background */
+    }
+
+    #viewIDPhotosBtn {
+        display: none !important; /* Ensures it is hidden during print */
+    }
+}
+
+
+/* Fade-in animation for modal background */
+@keyframes fadeInBackground {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Slide-in animation for modal content */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+
+
+.edit-btn, .delete-btn, .view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.edit-btn {
+    background-color: #218838;
+}
+
+.edit-btn:hover {
+    background-color: #1e7e34;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.edit-btn img, .delete-btn img, .view-btn img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.search-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-container label {
+    font-weight: bold;
+}
+
+.search-container input {
+    padding: 8px;  /* Slightly increased padding for a modern look */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Ensure full width */
+}
+
+
+.search-btn {
+    background-color: gainsboro; /* Button background color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for button */
+    cursor: pointer; /* Pointer on hover */
+    margin-left: 10px; /* Spacing between input and button */
+    display: flex; /* Center the icon */
+    align-items: center;
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.search-btn:hover {
+    background-color: rgb(168, 168, 168); /* Darker background on hover */
+}
+
+.search-btn img {
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Maintain aspect ratio */
+}
+
+
+
