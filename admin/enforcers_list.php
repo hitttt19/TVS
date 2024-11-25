@@ -403,35 +403,49 @@ if (isset($_GET['view_id'])) {
             </div>
 
         <!-- Modal for View Enforcer -->
-        <div id="viewEnforcerModal" class="modal">
-            <div class="modal-content">
-                <span class="close" id="closeViewEnforcer">&times;</span>
-                <h2>Enforcer Details</h2>
-                <?php if (isset($enforcerDetails)): ?>
-                <p><strong>Badge ID:</strong> <?php echo htmlspecialchars($enforcerDetails['badge_id']); ?></p>
-                <p><strong>First Name:</strong> <?php echo htmlspecialchars($enforcerDetails['firstname']); ?></p>
-                <p><strong>Middle Name:</strong> <?php echo htmlspecialchars($enforcerDetails['middlename']); ?></p>
-                <p><strong>Last Name:</strong> <?php echo htmlspecialchars($enforcerDetails['lastname']); ?></p>
-                <p><strong>Gender:</strong> <?php echo htmlspecialchars($enforcerDetails['gender']); ?></p>
-                <p><strong>Date of Birth:</strong> 
-                    <?php 
-                        // Format the date of birth
-                        $dob = new DateTime($enforcerDetails['date_of_birth']);
-                        echo htmlspecialchars($dob->format('F d, Y')); 
-                    ?>
-                </p>
-                <p><strong>Present Address:</strong> <?php echo htmlspecialchars($enforcerDetails['present_address']); ?></p>
-                <p><strong>Permanent Address:</strong> <?php echo htmlspecialchars($enforcerDetails['permanent_address']); ?></p>
-                <p><strong>Contact Number:</strong> <?php echo htmlspecialchars($enforcerDetails['contact_number']); ?></p>
-                <p><strong>Username:</strong> <?php echo htmlspecialchars($enforcerDetails['username']); ?></p>
-                <p><strong>Email:</strong> <?php echo htmlspecialchars($enforcerDetails['email']); ?></p>
-                <?php endif; ?>
+<div id="viewEnforcerModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="print-btn"><span class="icon">🖨️</span> <span class="text">Print</span></button>
+            <h2>Enforcer's Information</h2>
+            <button class="close" id="closeViewEnforcer"><span class="icon">✖</span><span class="text">Close</span></button>
+        </div>
+
+        <?php if (isset($enforcerDetails)): ?>
+        <div class="container-section">
+            <div class="enforcer-info">
+                <div class="info-left">
+                    <p><strong>Badge ID:</strong> <?php echo htmlspecialchars($enforcerDetails['badge_id']); ?></p>
+                    <p><strong>First Name:</strong> <?php echo htmlspecialchars($enforcerDetails['firstname']); ?></p>
+                    <p><strong>Middle Name:</strong> <?php echo htmlspecialchars($enforcerDetails['middlename']); ?></p>
+                    <p><strong>Last Name:</strong> <?php echo htmlspecialchars($enforcerDetails['lastname']); ?></p>
+                    <p><strong>Gender:</strong> <?php echo htmlspecialchars($enforcerDetails['gender']); ?></p>
+                    <p><strong>Date of Birth:</strong> 
+                        <?php 
+                            // Format the date of birth
+                            $dob = new DateTime($enforcerDetails['date_of_birth']);
+                            echo htmlspecialchars($dob->format('F d, Y')); 
+                        ?>
+                    </p>
+                    <p><strong>Present Address:</strong> <?php echo htmlspecialchars($enforcerDetails['present_address']); ?></p>
+                    <p><strong>Permanent Address:</strong> <?php echo htmlspecialchars($enforcerDetails['permanent_address']); ?></p>
+                    <p><strong>Contact Number:</strong> <?php echo htmlspecialchars($enforcerDetails['contact_number']); ?></p>
+                    <p><strong>Username:</strong> <?php echo htmlspecialchars($enforcerDetails['username']); ?></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($enforcerDetails['email']); ?></p>
+                </div>
+                <div class="info-right">
+                    <!-- Display Enforcer's Profile Photo -->
+                    <div class="profile-photo-container">
+                        <img src="<?php echo !empty($enforcerDetails['photo']) ? (strpos($enforcerDetails['photo'], '../') === 0 ? htmlspecialchars($enforcerDetails['photo']) : '../' . htmlspecialchars($enforcerDetails['photo'])) : '../image/defimage.png'; ?>" alt="Enforcer's Photo" class="profile-photo" />
+                    </div>
+                </div>
             </div>
         </div>
-        
-    
+        <?php endif; ?>
+    </div>
+</div> 
     <script src="../js/script.js"></script>
     <script src="../js/enforcerlistmodals.js"></script>
-
+    <script src="../js/enforcerdetailsprint.js"></script>
 </body>
 </html>

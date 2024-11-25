@@ -357,3 +357,16 @@ form button:hover {
     }
 }
 
+/* Fade-in and fade-out animations for the page */
+body {
+    opacity: 0; /* Start hidden for fade-in */
+    transition: opacity 0.5s ease-in-out;
+}
+
+body.fade-in {
+    opacity: 1; /* Fade in */
+}
+
+body.fade-out {
+    opacity: 0; /* Fade out */
+}

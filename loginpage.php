@@ -142,7 +142,26 @@ if ($currentSettings) {
         ?>
     });
 </script>
+<script>document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
 
+    // Add a fade-in animation on page load
+    body.classList.add('fade-in');
+
+    // Add fade-out animation when specific links are clicked
+    const links = document.querySelectorAll('a.forgot-password, a.link'); // Include specific links
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+            body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location.href = href;
+            }, 500); // Match transition duration
+        });
+    });
+});
+</script>
 <script src="js/landingMobileSidebar.js"></script>
 
 </body>

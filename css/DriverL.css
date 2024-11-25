@@ -81,36 +81,6 @@
     cursor: pointer; /* Change cursor to pointer for better UX */
 }
 
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.pagination .previous, .pagination .next, .pagination .page-number {
-    background-color: #ddd;
-    border: none;
-    padding: 5px 10px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.pagination .previous:hover, .pagination .next:hover, .pagination .page-number:hover {
-    background-color: #ccc;
-}
-
-.pagination .page-number.active {
-    background-color: #28a745; /* Updated to match offense records */
-    color: white;
-}
-
-.pagination .page-number.active:hover {
-    background-color: #218838;
-}
-
 /* Modal Background */
 .modal {
     display: none;

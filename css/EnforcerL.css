@@ -200,7 +200,7 @@ textarea {
     }
 }
 
-/* Modal Background for viewEnforcerModal */
+/* Modal Background */
 #viewEnforcerModal {
     display: none; /* Hidden by default */
     position: fixed;
@@ -210,61 +210,152 @@ textarea {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
-    animation: fadeInBackground 0.5s ease forwards; /* Fade-in animation */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
 }
 
-/* Modal Content for viewEnforcerModal */
+/* Modal Content */
 #viewEnforcerModal .modal-content {
     position: relative;
-    z-index: 1001;
-    background-color: #f9f9f9; /* Slightly lighter gray for distinction */
-    margin: 5% auto;
+    background-color: #ffffff;
+    margin: 2% auto;
     padding: 20px;
-    border-radius: 12px;
-    width: 80%;
-    max-width: 650px;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 900px; /* Larger width */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     font-family: Arial, sans-serif;
-    animation: slideIn 0.5s ease forwards; /* Slide-in animation */
-    border: 2px solid #ddd; /* Subtle border for a clean appearance */
 }
 
-/* Header Styling for viewEnforcerModal */
-#viewEnforcerModal .modal-content h2 {
-    margin-top: 0;
-    color: #000000; /* Darker blue for a formal look */
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 2px solid #004d40;
+/* Modal Header */
+#viewEnforcerModal .modal-header {
+    display: flex;
+    justify-content: left; /* Center the title */
+    align-items: left;
+    position: relative;
     padding-bottom: 10px;
+    border-bottom: 2px solid #004d40; /* Header line */
 }
 
-/* Close Button for viewEnforcerModal */
-#viewEnforcerModal .close {
-    color: #888;
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-#viewEnforcerModal .close:hover,
-#viewEnforcerModal .close:focus {
+/* Header Title */
+#viewEnforcerModal .modal-header h2 {
+    font-size: 20px;
+    font-weight: bold;  
     color: #333;
-    text-decoration: none;
 }
 
-/* Styling for Enforcer Details in viewEnforcerModal */
-#viewEnforcerModal p {
-    margin: 8px 0;
-    color: #444;
+/* Print Button - Positioned in the top-left corner */
+#viewEnforcerModal .print-btn {
+    position: absolute;
+    right: 85px; /* Align to the far left */
+    top: 100%;
+    height: 5vh;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 15px; /* Adjust padding for width */
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: auto; /* Adjust width to fit the content */
+}
+
+/* Styling for the icon and text */
+#viewEnforcerModal .print-btn .icon {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+#viewEnforcerModal .print-btn .text {
     font-size: 14px;
 }
+/* Hover effect for the print button */
+#viewEnforcerModal .print-btn:hover {
+    background-color: #094688; /* Change background to red on hover */
+    color: #fff; /* Keep text white */
+}
 
-#viewEnforcerModal p strong {
-    color: #000000; /* Emphasize labels */
+/* Close Button - Positioned in the top-right corner */
+#viewEnforcerModal .close {
+    position: absolute;
+    right: 2px; /* Align to the far right */
+    top: 100%;
+    transform: translateY(-50%);
+    background-color: #000000;
+    color: #fff; /* White text for contrast */
+    border: none;
+    font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
+    height: 5vh;
+    width: auto; /* Adjust width to fit content */
+    display: flex;
+    align-items: center;
+    text-align: left; /* Align the text to the left */
+    padding: 0 10px; /* Add some space around the text */
+}
+
+/* Styling for the icon and text */
+#viewEnforcerModal .close .icon {
+    margin-right: 8px; /* Space between the icon and the text */
+}
+
+#viewEnforcerModal .close .text {
+    font-size: 14px;
+}
+/* Hover effect for the close button */
+#viewEnforcerModal .close:hover {
+    background-color: #bb7575; /* Change background to red on hover */
+    color: #fff; /* Keep text white */
+}
+
+/* Container Section (for each separate container) */
+.container-section {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 40px;
+    background-color: #f9f9f9;
+}
+
+/* Enforcer Info Section */
+.enforcer-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* Info Left Section */
+.enforcer-info .info-left {
+    flex: 3;
+}
+
+.enforcer-info .info-left p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Profile Photo Styling */
+.enforcer-info .info-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-photo {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 
 /* Fade-in animation for modal background */

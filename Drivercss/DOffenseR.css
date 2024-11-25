@@ -60,55 +60,6 @@
     background-color: #fff;
 }
 
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.pagination .previous, .pagination .next, .pagination .page-number {
-    background-color: #ddd;
-    border: none;
-    padding: 5px 10px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.pagination .previous:hover, .pagination .next:hover, .pagination .page-number:hover {
-    background-color: #ccc;
-}
-
-.pagination .page-number.active {
-    background-color: #007bff;
-    color: white;
-}
-
-.pagination .page-number.active:hover {
-    background-color: #006fce;
-}
-
-
-.view-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px; 
-    height: 30px; 
-    padding: 5px;
-    border: 1px solid gray;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.view-btn img {
-    width: 16px; 
-    height: 16px; 
-    object-fit: contain; 
-}
-
 .search-container {
     margin-left: auto;
     display: flex;
@@ -153,6 +104,194 @@
     width: 20px; /* Adjust icon size */
     height: 20px; /* Maintain aspect ratio */
 }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: fadeInBackground 0.5s ease forwards; /* Fade-in background effect */
+}
+/* Fade-in Background */
+@keyframes fadeInBackground {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Slide-in Effect */
+@keyframes slideIn {
+    0% {
+        transform: translateY(-30px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* General Modal Styles */
+#ticketModal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#ticketModal .modal-content {
+    background-color: #ffffff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header Styles */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+
+/* Buttons aligned horizontally */
+.header-buttons {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.header-buttons .close-btn {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between icon and text */
+}
+
+.header-buttons .print-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between icon and text */
+}
+
+.header-buttons .print-btn:hover {
+    background-color: #0056b3;
+    color: #fff; /* Keep text white */
+}
+
+.header-buttons .close-btn:hover {
+    background-color: #bb7575; /* Change background to red on hover */
+    color: #fff; /* Keep text white */
+}
+
+/* Table Styles */
+.modal-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.modal-detail-table th,
+.modal-detail-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #333;
+}
+
+.modal-detail-table th {
+    width: 40%;
+    font-weight: bold;
+}
+
+.modal-detail-table td {
+    color: #555;
+}
+
+/* Footer Styles */
+.modal-footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #ticketModal .modal-content {
+        width: 90%;
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .modal-header h2 {
+        font-size: 18px; /* Smaller font for title */
+    }
+
+    .header-buttons {
+        justify-content: center; /* Center buttons on small screens */
+    }
+
+    .header-buttons .print-btn,
+    .header-buttons .close-btn {
+        padding: 10px; /* Add more padding for easier clicks */
+        font-size: 12px; /* Adjust font size for small screens */
+    }
+
+    .modal-detail-table th,
+    .modal-detail-table td {
+        font-size: 14px; /* Adjust table text size */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-header {
+        flex-direction: column; /* Stack the header elements */
+        align-items: center;
+    }
+
+    .header-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 5px; /* Reduce gap between stacked buttons */
+    }
+
+    .modal-detail-table th,
+    .modal-detail-table td {
+        font-size: 12px; /* Smaller text for extra-small screens */
+    }
+}
+
 
 /* Mobile Sidebar */
 .mobile-sidebar {
@@ -231,6 +370,16 @@
     top: 15px;
     left: 15px;
     z-index: 10000; /* Ensure it sits above other elements */
+}
+tr td .ticket-link {
+    color: #007bff; /* Bright blue color */
+    font-weight: bold; /* Bold font weight */
+    text-decoration: none; /* Remove underline */
+}
+
+tr td .ticket-link:hover {
+    color: #0056b3; /* Darker blue on hover */
+    text-decoration: underline; /* Underline on hover for better visibility */
 }
 
 @media (max-width: 768px) {
