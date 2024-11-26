@@ -79,36 +79,6 @@
 }
 
 
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.pagination button {
-    background-color: #ddd;
-    border: none;
-    padding: 5px 10px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.pagination button:hover {
-    background-color: #ccc;
-}
-
-.pagination .page-number.active {
-    background-color: #28a745; /* Updated to match offense records */
-    color: white;
-}
-
-.pagination .page-number.active:hover {
-    background-color: #218838;
-}
-
 .con-edit-btn, .con-delete-btn {
     display: inline-flex;
     align-items: center;
@@ -170,7 +140,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     animation: slideIn 0.5s ease forwards; /* Adding slide-in animation */
 }
-
+.modal-content h2{
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
+}
 /* Close Button */
 .close {
     color: #aaa;

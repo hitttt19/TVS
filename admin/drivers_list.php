@@ -313,7 +313,7 @@ if (isset($_GET['view_id'])) {
         <div id="driverFormModal" class="modal">
             <div class="modal-content">
                 <span class="close" id="closeDriverForm">&times;</span>
-                <h2 id="formTitle">Create New Driver</h2>
+                <h2 id="formTitle">Add New Driver</h2>
                 <form action="drivers_list.php" method="post">
                     <input type="hidden" id="driverId" name="id">
 

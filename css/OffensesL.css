@@ -124,32 +124,6 @@
     object-fit: contain; 
 }
 
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.pagination .previous, .pagination .next, .pagination .page-number {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.pagination .previous:hover, .pagination .next:hover, .pagination .page-number:hover {
-    background-color: #0056b3;
-}
-
-.pagination .page-number.active {
-    background-color: #0d6efd;
-    color: white;
-}
 
 .offenses-edit-btn, .offenses-delete-btn {
     display: inline-flex;
@@ -197,6 +171,11 @@
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
     animation: fadeInBackground 0.5s ease forwards; /* Adding fade-in animation */
+}
+
+.modal-content h2{
+    border-bottom: 2px solid rgb(170, 166, 166);
+    padding-bottom: 10px;
 }
 
 /* Modal Content with slide-in animation and top border */

@@ -340,7 +340,7 @@ if (isset($_GET['view_id'])) {
             <div id="enforcerFormModal" class="modal">
                 <div class="modal-content">
                     <span class="close" id="closeEnforcerForm">&times;</span>
-                    <h2 id="formTitle">Create New Enforcer</h2>
+                    <h2 id="formTitle">Add New Enforcer</h2>
                     <form action="enforcers_list.php" method="post">
                         <input type="hidden" id="entryId" name="id">
                         <div class="form-group">
