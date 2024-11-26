@@ -89,6 +89,8 @@ nav ul li a {
     display: flex;
     width: 650px;
     max-width: 90%;
+    /* max-height: 100%;
+    height: 700px; */
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -116,7 +118,7 @@ nav ul li a {
 }
 
 .icon {
-    width: 60px;
+    width: 100px;
     margin: 20px 0;
 }
 
@@ -369,4 +371,72 @@ body.fade-in {
 
 body.fade-out {
     opacity: 0; /* Fade out */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+    .left-section h2 {
+        font-size: 1.5em;
+    }
+    .left-section p {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .overlay {
+        padding: 20px;
+    }
+    .left-section {
+        display: none;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    .left-section h2 {
+        font-size: 1.2em;
+    }
+    .left-section p {
+        font-size: 0.9em;
+    }
+    .login-container {
+        max-width: 90%;
+        width: 500px;
+    }
+    .login-container .modal-title {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .left-section {
+        display: none;
+        order: 1; /* Ensure left section comes on top */
+        text-align: center;
+    }
+
+    .left-section h2 {
+        font-size: 1.1em;
+    }
+
+    .left-section p {
+        font-size: 0.8em;
+    }
+
+    .login-container {
+        max-width: 80%;
+        width: 400px;
+    }
+
+    .login-container .modal-title {
+        font-size: 1.3em;
+    }
+
+    .login-container .modal-subtitle {
+        font-size: 1em;
+    }
+    
+    /* Ensure the login form has some breathing space */
+    .login-container {
+        margin-top: 20px;
+    }
 }

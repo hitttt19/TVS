@@ -31,6 +31,7 @@ if ($currentSettings) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -95,7 +96,10 @@ if ($currentSettings) {
                         <i class="fas fa-eye-slash password-toggle" id="passwordToggle"></i>
                     </div>
                     <div class="form-group">
-                        <button type="submit">Sign In</button>
+                        <div class="g-recaptcha" data-sitekey="6Lfyb4oqAAAAALNkprzY34mmbinkMgJapFS_gBYa" data-callback="enableSubmitButton"></div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="submitBtn" disabled>Sign In</button>
                     </div>
                     <a href="forgot_password.php" class="forgot-password">Forgot Password</a>
                 </form>
@@ -103,6 +107,14 @@ if ($currentSettings) {
         </div>
     </div>
 </main>
+
+<script>
+    // This function will be triggered once the reCAPTCHA is successfully completed.
+    function enableSubmitButton() {
+        // Enable the submit button after successful reCAPTCHA completion
+        document.getElementById('submitBtn').disabled = false;
+    }
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {

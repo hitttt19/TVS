@@ -134,3 +134,10 @@ CREATE TABLE password_reset_temp (
     expDate DATETIME NOT NULL,    -- Expiration date of the reset link (e.g., 24 hours from creation)
     PRIMARY KEY (email, `key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE login_attempts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(255) NOT NULL,
+    attempt_time DATETIME NOT NULL,
+    ip_address VARCHAR(45) NOT NULL
+);
