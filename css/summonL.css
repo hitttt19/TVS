@@ -86,7 +86,7 @@ hr {
 }
 
 .modal-button {
-    background-color: mediumseagreen; 
+    background-color: #218838; 
     color: white;        
     border: none;          
     padding: 10px 20px;    
@@ -100,26 +100,24 @@ hr {
 }
 
 .modal-button:hover {
-    background-color: rgb(0, 118, 139); 
+    background-color:#1e7e34; 
 }
+
+button.modal-button.secondary{
+        background-color: #aaa;
+        float: right;
+        font-size: 16px;
+        font-weight: bold;}
+
+button.modal-button.secondary:hover{
+    background-color: #8f8888;
+}
+
+
 
 .button-container {
     text-align: right; 
     margin-top: 20px; 
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 /* Table styles */

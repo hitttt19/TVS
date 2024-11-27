@@ -470,57 +470,77 @@ $enforcers = $enforcers_stmt->fetchAll(PDO::FETCH_ASSOC);
         </form>
     </div>
 </div>
-        <!-- Modal for Sending Letter -->
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeLetterModal()">&times;</span>
-                    <div class="letter-content">
-                        <header>
-                            <div class="header-left">
-                                <img src="../logo/RegLogo.png" alt="City Logo" class="city-logo">
-                            </div>
-                            <div class="header-right">
-                                <h2>Office of the City Mayor</h2>
-                                <h3>Bogo Traffic Management Office</h3>
-                                <p>Bogo City</p>
-                            </div>
-                        </header>
-                        <hr>
-                        <section class="letter-body">
-                            <p class="date"></p>
-                            <p><strong><span class="driver-address"></span></strong></p><br>
-                            <p>Dear Mr./Mrs. <strong class="driver-name"></strong>,</p>
-                            <p>This shall serve as a formal written demand for the immediate payment in full of a fine for:</p>
-                            <table class="citation-details">
-                                <tr>
-                                    <td>Traffic Citation Ticket No.:</td>
-                                    <td><strong class="ticket-no"></strong></td>
-                                </tr>
-                                <tr>
-                                    <td>For violation of:</td>
-                                    <td><strong class="offense-name"></strong></td>
-                                </tr>
-                                <tr>
-                                    <td>Date of Violation:</td>
-                                    <td><strong class="violation-date"></strong></td>
-                                </tr>
-                                <tr>
-                                    <td>Amount of Fine:</td>
-                                    <td><strong class="offense-rate"></strong></td>
-                                </tr>
-                            </table>
-                            <p>As stated in the citation ticket, you were given seven (7) days from the date of the violation to settle the fine, but our records show that, to date, no payment has been received.</p>
-                            <p><strong>Failure to pay the fine</strong> will result in the matter being referred to the City Prosecutor's Office for the filing of an appropriate case against you in a court of law.</p>
-                        </section>
-                        <section class="signature">
-                            <p>Sincerely,</p>
-                            <p><strong>ROGEL L. LAYSON</strong><br>Lieutenant PNP (Ret)<br>OIC - Bogo Traffic Management Office</p>
-                        </section>
-                    </div>
-                    <div class="button-container">
-                        <button class="modal-button" onclick="sendLetter()">Send</button>
-                    </div>
+     <!-- Modal for Sending Letter  -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Notice of Traffic Violation</h2>
+        </div>
+        <div class="modal-body">
+            <!-- Letter Header -->
+            <header class="letter-header">
+                <div class="header-left">
+                    <img src="../logo/RegLogo.png" alt="City Logo" class="city-logo">
                 </div>
+                <div class="header-right">
+                    <h3>Office of the City Mayor</h3>
+                    <p>Bogo Traffic Management Office</p>
+                    <p>Bogo City</p>
+                </div>
+            </header>
+            <hr>
+
+            <!-- Letter Content -->
+            <section class="letter-content">
+                <p class="date"><strong>Date:</strong> <span class="current-date"></span></p>
+                <p><strong>Driver Address:</strong> <span class="driver-address"></span></p>
+                <p>Dear Mr./Mrs. <strong class="driver-name"></strong>,</p>
+                <p>
+                    This shall serve as a formal written demand for the immediate payment in full of a fine for the following traffic violation:
+                </p>
+
+                <!-- Citation Details -->
+                <table class="citation-details">
+                    <tr>
+                        <td>Traffic Citation Ticket No.:</td>
+                        <td><strong class="ticket-no"></strong></td>
+                    </tr>
+                    <tr>
+                        <td>Violation:</td>
+                        <td><strong class="offense-name"></strong></td>
+                    </tr>
+                    <tr>
+                        <td>Date of Violation:</td>
+                        <td><strong class="violation-date"></strong></td>
+                    </tr>
+                    <tr>
+                        <td>Amount of Fine:</td>
+                        <td><strong class="offense-rate"></strong></td>
+                    </tr>
+                </table>
+
+                <!-- Payment Reminder -->
+                <p>
+                    As stated in the citation ticket, you were given seven (7) days from the date of the violation to settle the fine, but our records show that no payment has been received.
+                </p>
+                <p><strong>Failure to pay the fine</strong> will result in the matter being referred to the City Prosecutor's Office for legal action.</p>
+            </section>
+
+            <!-- Signature -->
+            <section class="signature">
+                <p>Sincerely,</p>
+                <p><strong>ROGEL L. LAYSON</strong><br>Lieutenant PNP (Ret)<br>OIC - Bogo Traffic Management Office</p>
+            </section>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+            <button class="modal-button" onclick="sendLetter()">Send Letter</button>
+            <button class="modal-button secondary" onclick="closeLetterModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
             </div>
             <?php if (isset($_SESSION['message_success'])): ?>
     <script>

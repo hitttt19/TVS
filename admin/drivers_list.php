@@ -8,36 +8,6 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-// Handle form submissions for approving or rejecting the driver
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle approval or rejection
-    if (isset($_POST['approveDriver']) || isset($_POST['rejectDriver'])) {
-        // Ensure necessary parameters are available
-        if (isset($_POST['license_id'], $_POST['view_id'])) {
-            $license_id = $_POST['license_id'];
-            $driver_id = $_POST['view_id'];
-
-            // Check which button was clicked (approve or reject)
-            $status = isset($_POST['approveDriver']) ? 'approved' : 'rejected';
-
-            // Update the database with the new status
-            $stmt = $pdo->prepare("UPDATE drivers SET id_photo_status = :status WHERE id = :driver_id");
-            $stmt->execute([
-                ':status' => $status,
-                ':driver_id' => $driver_id
-            ]);
-
-            // Set session variables for Toastify message
-            $_SESSION['toast_message'] = ucfirst($status) . ' successfully.';
-            $_SESSION['toast_type'] = 'success';  // Can be 'success' or 'error'
-
-            // Redirect back to the page to display the message in the modal
-            header('Location: drivers_list.php');
-            exit();
-        }
-    }
-}
-
 // Handle CRUD operations (create, update, delete)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
@@ -436,53 +406,15 @@ if (isset($_GET['view_id'])) {
                     <p><strong>Permanent Address:</strong> <?php echo htmlspecialchars($driverDetails['permanent_address']); ?></p>
                     <p><strong>Contact No.:</strong> <?php echo htmlspecialchars($driverDetails['contact_number']); ?></p>
                     <p><strong>Nationality:</strong> <?php echo htmlspecialchars($driverDetails['nationality']); ?></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($driverDetails['email']); ?></p>
                 </div>
                 <div class="info-right">
                     <!-- Display Driver's Profile Photo -->
                     <div class="profile-photo-container">
                         <img src="<?php echo !empty($driverDetails['photo']) ? (strpos($driverDetails['photo'], '../') === 0 ? htmlspecialchars($driverDetails['photo']) : '../' . htmlspecialchars($driverDetails['photo'])) : '../image/defimage.png'; ?>" alt="Driver's Photo" class="profile-photo" />
-                        <?php if ($driverDetails['id_photo_status'] === 'approved'): ?>
-                            <span class="verified-label">Verified</span>
-                        <?php elseif ($driverDetails['id_photo_status'] === 'rejected'): ?>
-                            <span class="not-verified-label">Not Verified</span>
-                        <?php else: ?>
-                            <span class="pending-label">Not Verified</span>
-                        <?php endif; ?>
-
-                        <!-- Button to show ID Photos -->
-                        <button id="viewIDPhotosBtn" class="view-photos-btn">View ID Photos</button>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Section for ID Front and ID Back Photos (Initially Hidden) -->
-        <div class="container-section" id="idPhotosSection" style="display:none;">
-            <h3>Driver's ID Photos</h3>
-            <div class="id-photos">
-                <div class="photo-left">
-                    <h4>ID Front</h4>
-                    <!-- Display ID Front Photo -->
-                    <img src="<?php echo !empty($driverDetails['id_front_photo']) 
-                            ? '../' . htmlspecialchars($driverDetails['id_front_photo']) 
-                            : '../image/defimage.png'; ?>" alt="ID Front Photo" class="id-photo" />
-                </div>
-                <div class="photo-right">
-                    <h4>ID Back</h4>
-                    <!-- Display ID Back Photo -->
-                    <img src="<?php echo !empty($driverDetails['id_back_photo']) 
-                            ? '../' . htmlspecialchars($driverDetails['id_back_photo']) 
-                            : '../image/defimage.png'; ?>" alt="ID Back Photo" class="id-photo" />
-                </div>
-            </div>
-
-            <!-- Approve and Reject Buttons Form -->
-            <form method="POST" action="">
-                <input type="hidden" name="license_id" value="<?php echo htmlspecialchars($driverDetails['license_id']); ?>">
-                <input type="hidden" name="view_id" value="<?php echo htmlspecialchars($driverDetails['id']); ?>">
-                <button type="submit" name="approveDriver" class="approve-btn">Approve</button>
-                <button type="submit" name="rejectDriver" class="reject-btn">Reject</button>
-            </form>
         </div>
 
         <!-- Offense Records Section -->
@@ -542,52 +474,6 @@ if (isset($_GET['view_id'])) {
         <?php unset($_SESSION['toast_message']); ?>
         <?php unset($_SESSION['toast_type']); ?>
     <?php endif; ?>
-});
-</script>
-
-<script>
-// Toggle the visibility of the ID photos section when the "View ID Photos" button is clicked
-document.getElementById('viewIDPhotosBtn').addEventListener('click', function() {
-    var idPhotosSection = document.getElementById('idPhotosSection');
-    if (idPhotosSection.style.display === 'none') {
-        idPhotosSection.style.display = 'block';  // Show ID photos section
-    } else {
-        idPhotosSection.style.display = 'none';   // Hide ID photos section
-    }
-});
-
-// Close the modal when the close button is clicked
-document.getElementById('closeViewDriver').addEventListener('click', function() {
-    document.getElementById('viewDriverModal').style.display = 'none';
-});
-
-document.getElementById('approveRejectForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    var formData = new FormData(this); // Create FormData from the form
-
-    // Send AJAX request to the server
-    fetch('drivers_list.php', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json()) // Expect JSON response
-    .then(data => {
-        // Check the response from the server
-        if (data.success) {
-            // Display success message or update the UI
-            alert(data.message); // Show a success message (this can be a custom modal or notification)
-            // Optionally, close or reset the modal here
-            document.getElementById('viewDriverModal').style.display = 'none'; // Close modal if needed
-        } else {
-            // Handle errors (e.g., invalid input or system error)
-            alert(data.message || 'An error occurred. Please try again.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-    });
 });
 </script>
 

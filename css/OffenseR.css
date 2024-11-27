@@ -173,9 +173,13 @@ tr td .ticket-link:hover {
 }
 
 .modal-content h2{
-    border-bottom: 2px solid rgb(170, 166, 166);
+    /* border-bottom: 2px solid rgb(170, 166, 166); */
     padding-bottom: 10px;
 }
+#recordFormModal .modal-content h2{
+    border-bottom:2px solid rgb(170, 166, 166); ;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -424,7 +428,7 @@ tr td .ticket-link:hover {
     text-align: center;
     margin-top: 20px;
 }
-
+/* 
 .modal-button {
     background-color: #004d40;
     color: white;
@@ -438,7 +442,7 @@ tr td .ticket-link:hover {
 
 .modal-button:hover {
     background-color: #003e33;
-}
+} */
 
 /* Fade-in Background */
 @keyframes fadeInBackground {
