@@ -26,6 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if (($action === 'create' || $action === 'update') && 
         (empty($datetime) || empty($license_id) || empty($traffic_enforcer) || empty($status) || empty($offense_name) || empty($offense_rate))) {
         $_SESSION['message_error'] = "All fields are required.";
+        header("Location: offense_records.php");
+        exit();
     } else {
         try {
             if ($action === 'create' || $action === 'update') {
@@ -37,31 +39,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 // Check if enforcer_id was found
                 if (!$enforcer_id) {
                     $_SESSION['message_error'] = "Selected enforcer not found.";
+                    header("Location: offense_records.php");
+                    exit();
                 } else {
                     // Proceed with create or update action
                     if ($action === 'create') {
+                        // Generate a unique ticket number
                         do {
-                            // Generate a random 7-digit number for ticket_no
                             $ticket_no = str_pad(rand(0, 9999999), 7, '0', STR_PAD_LEFT);
-                            
-                            // Check if the ticket number already exists
                             $stmt = $pdo->prepare("SELECT COUNT(*) FROM offense_records WHERE ticket_no = ?");
                             $stmt->execute([$ticket_no]);
                             $ticket_no_exists = $stmt->fetchColumn();
                         } while ($ticket_no_exists > 0);
-
+                    
+                        // Check if license_id or temp_name is provided
+                        $temp_name = isset($_POST['temp_name']) ? $_POST['temp_name'] : null;
+                        if (!$license_id && !$temp_name) {
+                            $_SESSION['message_error'] = "Please provide either a License ID or a Temporary Name.";
+                            header("Location: offense_records.php");
+                            exit();
+                        }
+                    
                         // Insert the new offense record
-                        $stmt = $pdo->prepare("INSERT INTO offense_records (datetime, ticket_no, license_id, offense_name, offense_rate, status, enforcer_id) 
-                                              VALUES (?, ?, ?, ?, ?, ?, ?)");
-                        $stmt->execute([$datetime, $ticket_no, $license_id, $offense_name, $offense_rate, $status, $enforcer_id]);
-
+                        $stmt = $pdo->prepare("
+                            INSERT INTO offense_records (datetime, ticket_no, license_id, temp_name, offense_name, offense_rate, status, enforcer_id) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                        ");
+                        $stmt->execute([$datetime, $ticket_no, $license_id, $temp_name, $offense_name, $offense_rate, $status, $enforcer_id]);
+                    
                         $_SESSION['message_success'] = "Offense record created successfully!";
                         header("Location: offense_records.php");
                         exit();
                     } elseif ($action === 'update') {
-                        // Update existing offense record with enforcer_id
-                        $stmt = $pdo->prepare("UPDATE offense_records SET datetime = ?, license_id = ?, offense_name = ?, offense_rate = ?, status = ?, enforcer_id = ? WHERE id = ?");
-                        $stmt->execute([$datetime, $license_id, $offense_name, $offense_rate, $status, $enforcer_id, $id]);
+                        // Ensure that the record exists before attempting to update
+                        if (empty($id)) {
+                            $_SESSION['message_error'] = "Offense ID is required to update.";
+                            header("Location: offense_records.php");
+                            exit();
+                        }
+
+                        // Prepare the update SQL query
+                        $stmt = $pdo->prepare("
+                            UPDATE offense_records 
+                            SET datetime = ?, license_id = ?, temp_name = ?, offense_name = ?, offense_rate = ?, status = ?, enforcer_id = ?
+                            WHERE id = ?
+                        ");
+                        $stmt->execute([$datetime, $license_id, $temp_name, $offense_name, $offense_rate, $status, $enforcer_id, $id]);
 
                         $_SESSION['message_success'] = "Offense record updated successfully!";
                         header("Location: offense_records.php");
@@ -99,6 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             // Rollback the transaction if any error occurs
             $pdo->rollBack();
             $error = "Error: " . htmlspecialchars($e->getMessage());
+            $_SESSION['message_error'] = $error;
+            header("Location: offense_records.php");
+            exit();
         }
     }
 }
@@ -115,7 +141,7 @@ $search = isset($_GET['search']) ? "%" . $_GET['search'] . "%" : "%";
 $stmt = $pdo->prepare("
     SELECT offense_records.*, 
            drivers.present_address, 
-           CONCAT(drivers.firstname, ' ', COALESCE(drivers.middlename, ''), ' ', drivers.lastname) AS driver_name,
+           COALESCE(CONCAT(drivers.firstname, ' ', COALESCE(drivers.middlename, ''), ' ', drivers.lastname), offense_records.temp_name) AS driver_name,
            CONCAT(traffic_enforcers.firstname, ' ', COALESCE(traffic_enforcers.middlename, ''), ' ', traffic_enforcers.lastname) AS traffic_enforcer
     FROM offense_records
     LEFT JOIN drivers ON offense_records.license_id = drivers.license_id
@@ -130,7 +156,6 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute([$search, $search, $search, $search, $search]);
 $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
 // Get offense names and rates for the form dropdowns
 $offenses_stmt = $pdo->prepare("SELECT id, name, rate FROM offenses");
@@ -243,117 +268,105 @@ $enforcers = $enforcers_stmt->fetchAll(PDO::FETCH_ASSOC);
     </ul>
 </nav>
 
+<!-- Overlay for mobile sidebar -->
+<div class="overlay" onclick="toggleSidebar()"></div>
 
-        <!-- Overlay for mobile sidebar -->
-        <div class="overlay" onclick="toggleSidebar()"></div>
-
-        <!-- Main Content Area -->
-        <div class="main-content">
-            <!-- Header -->
-            <header class="header">
-                <div class="header-left">
-                    <h2>Bogo City Traffic Violations System</h2>
-                </div>
-                <div class="user-menu">
-                    <img src="../icons/profile.png" class="user-icon">
-                    <span class="user-name">Admin</span>
-                </div>
-            </header>
-
-            <section id="offense-records" class="content-section offense-records active">
-                <h2>List of Offense Records</h2>
-                <?php if (isset($error)): ?>
-                    <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
-                <?php endif; ?>
-                <div class="offenseR-controls">
-                    <!-- <label for="show-entries">Show</label>
-                    <select id="show-entries">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <span>entries</span> -->
-                    <button class="create-new" onclick="showRecordForm()">Create New</button>
-                    <div class="search-container">
-                        <label for="search">Search:</label>
-                        <input type="text" id="search" name="search" placeholder="Search Records" oninput="searchRecords()" value="<?php echo htmlspecialchars(isset($_GET['search']) ? $_GET['search'] : ''); ?>">
-                    </div>
-                </div>
-                <div class="offenseR-table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <!-- <th>#</th> -->
-                                <th>Datetime</th>
-                                <th>Ticket No.</th>
-                                <th>License ID</th>
-                                <th>Driver Name</th>
-                                <th>Offense</th>
-                                <th>Penalty</th>
-                                <th>Enforcer</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (empty($records)): ?>
-                                <tr>
-                                    <td colspan="9" style="text-align: left;">No offense records found.</td>
-                                </tr>
-                            <?php else: ?>
-                                <?php foreach ($records as $record): ?>
-                                    <tr>
-    <tr>
-    <td><?php echo htmlspecialchars(date('F j, Y, g:i a', strtotime($record['datetime']))); ?></td>
-    <td>
-        <!-- Keep the Ticket No. visible and clickable -->
-        <a href="javascript:void(0);" class="ticket-link" onclick="openTicketModal(
-            '<?php echo htmlspecialchars($record['ticket_no']); ?>', 
-            '<?php echo htmlspecialchars($record['driver_name']); ?>', 
-            '<?php echo htmlspecialchars($record['offense_name']); ?>', 
-            '<?php echo htmlspecialchars(date('F j, Y, g:i a', strtotime($record['datetime']))); ?>', 
-            '<?php echo htmlspecialchars($record['offense_rate']); ?>'
-        )">
-            <?php echo htmlspecialchars($record['ticket_no']); ?>
-        </a>
-    </td>
-    <td><?php echo htmlspecialchars($record['license_id']); ?></td>
-    <td><?php echo htmlspecialchars($record['driver_name']); ?></td>
-    <td><?php echo htmlspecialchars($record['offense_name']); ?></td>
-    <td><?php echo htmlspecialchars('₱' . number_format($record['offense_rate'], 2)); ?></td> <!-- Updated Line -->
-    <td><?php echo htmlspecialchars($record['traffic_enforcer']); ?></td>
-    <td><span class="status <?php echo htmlspecialchars($record['status']); ?>"><?php echo htmlspecialchars($record['status']); ?></span></td>
-    <td>
-        <button class="edit-btn" onclick="editRecord('<?php echo htmlspecialchars($record['id']); ?>', '<?php echo htmlspecialchars($record['datetime']); ?>', '<?php echo htmlspecialchars($record['ticket_no']); ?>', '<?php echo htmlspecialchars($record['license_id']); ?>', '<?php echo htmlspecialchars($record['traffic_enforcer']); ?>', '<?php echo htmlspecialchars($record['status']); ?>', '<?php echo htmlspecialchars($record['offense_name']); ?>', '<?php echo htmlspecialchars($record['offense_rate']); ?>')">
-            <img src="../icons/Edit.png" alt="Edit Icon" class="icon">
-        </button>
-        <form action="offense_records.php" method="post" style="display:inline;">
-            <input type="hidden" name="id" value="<?php echo htmlspecialchars($record['id']); ?>">
-            <input type="hidden" name="action" value="delete">
-            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this record?');">
-                <img src="../icons/Delete.png" alt="Delete Icon" class="icon">
-            </button>
-            <?php if ($record['status'] !== 'Resolved'): ?>
-                <button type="button" class="send-btn" 
-                    data-datetime="<?php echo htmlspecialchars($record['datetime']); ?>" 
-                    style="display: none;" 
-                    onclick="openLetterModal('<?php echo htmlspecialchars($record['ticket_no']); ?>', '<?php echo htmlspecialchars($record['driver_name']); ?>', '<?php echo htmlspecialchars($record['offense_name']); ?>', '<?php echo htmlspecialchars($record['datetime']); ?>', '<?php echo htmlspecialchars($record['offense_rate']); ?>', '<?php echo htmlspecialchars($record['present_address']); ?>')">
-                    <img src="../icons/send.png" alt="Send Icon" class="icon">
-                </button>
-            <?php endif; ?>
-        </form>
-    </td>
-</tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </tbody>
-
-                    </table>
-                </div>
-            </section>
+<!-- Main Content Area -->
+<div class="main-content">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <h2>Bogo City Traffic Violations System</h2>
         </div>
-    </div>
+        <div class="user-menu">
+            <img src="../icons/profile.png" class="user-icon">
+            <span class="user-name">Admin</span>
+        </div>
+    </header>
+
+    <section id="offense-records" class="content-section offense-records active">
+        <h2>List of Offense Records</h2>
+        <?php if (isset($error)): ?>
+            <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+        <div class="offenseR-controls">
+            <button class="create-new" onclick="showRecordForm()">Create New</button>
+            <div class="search-container">
+                <label for="search">Search:</label>
+                <input type="text" id="search" name="search" placeholder="Search Records" oninput="searchRecords()" value="<?php echo htmlspecialchars(isset($_GET['search']) ? $_GET['search'] : ''); ?>">
+            </div>
+        </div>
+        <div class="offenseR-table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Datetime</th>
+                        <th>Ticket No.</th>
+                        <th>License ID</th>
+                        <th>Driver Name</th>
+                        <th>Offense</th>
+                        <th>Penalty</th>
+                        <th>Enforcer</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (empty($records)): ?>
+                        <tr>
+                            <td colspan="9" style="text-align: left;">No offense records found.</td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($records as $record): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars(date('F j, Y, g:i a', strtotime($record['datetime']))); ?></td>
+                                <td>
+                                    <a href="javascript:void(0);" class="ticket-link" onclick="openTicketModal(
+                                        '<?php echo htmlspecialchars($record['ticket_no']); ?>', 
+                                        '<?php echo htmlspecialchars($record['driver_name']); ?>', 
+                                        '<?php echo htmlspecialchars($record['offense_name']); ?>', 
+                                        '<?php echo htmlspecialchars(date('F j, Y, g:i a', strtotime($record['datetime']))); ?>', 
+                                        '<?php echo htmlspecialchars($record['offense_rate']); ?>'
+                                    )">
+                                        <?php echo htmlspecialchars($record['ticket_no']); ?>
+                                    </a>
+                                </td>
+                                <td><?php echo htmlspecialchars($record['license_id']); ?></td>
+                                <td><?php echo htmlspecialchars($record['driver_name']); ?></td>
+                                <td><?php echo htmlspecialchars($record['offense_name']); ?></td>
+                                <td><?php echo htmlspecialchars('₱' . number_format($record['offense_rate'], 2)); ?></td>
+                                <td><?php echo htmlspecialchars($record['traffic_enforcer']); ?></td>
+                                <td><span class="status <?php echo htmlspecialchars($record['status']); ?>"><?php echo htmlspecialchars($record['status']); ?></span></td>
+                                <td>
+                                    <button class="edit-btn" onclick="editRecord('<?php echo htmlspecialchars($record['id']); ?>', '<?php echo htmlspecialchars($record['datetime']); ?>', '<?php echo htmlspecialchars($record['ticket_no']); ?>', '<?php echo htmlspecialchars($record['license_id']); ?>', '<?php echo htmlspecialchars($record['traffic_enforcer']); ?>', '<?php echo htmlspecialchars($record['status']); ?>', '<?php echo htmlspecialchars($record['offense_name']); ?>', '<?php echo htmlspecialchars($record['offense_rate']); ?>')">
+                                        <img src="../icons/Edit.png" alt="Edit Icon" class="icon">
+                                    </button>
+                                    <form action="offense_records.php" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($record['id']); ?>">
+                                        <input type="hidden" name="action" value="delete">
+                                        <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this record?');">
+                                            <img src="../icons/Delete.png" alt="Delete Icon" class="icon">
+                                        </button>
+                                        <?php if ($record['status'] !== 'Resolved'): ?>
+                                            <button type="button" class="send-btn" 
+                                                data-datetime="<?php echo htmlspecialchars($record['datetime']); ?>" 
+                                                style="display: none;" 
+                                                onclick="openLetterModal('<?php echo htmlspecialchars($record['ticket_no']); ?>', '<?php echo htmlspecialchars($record['driver_name']); ?>', '<?php echo htmlspecialchars($record['offense_name']); ?>', '<?php echo htmlspecialchars($record['datetime']); ?>', '<?php echo htmlspecialchars($record['offense_rate']); ?>', '<?php echo htmlspecialchars($record['present_address']); ?>')">
+                                                <img src="../icons/send.png" alt="Send Icon" class="icon">
+                                            </button>
+                                        <?php endif; ?>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+</div>
+
    <!-- Modal Structure -->
 <div id="ticketModal" class="modal">
     <div class="modal-content">
@@ -413,6 +426,11 @@ $enforcers = $enforcers_stmt->fetchAll(PDO::FETCH_ASSOC);
                 <label for="datetime">Datetime:</label>
                 <input type="datetime-local" id="datetime" name="datetime" required>
             </div>
+
+            <div class="form-group inline-group">
+    <label for="temp_name">Name:</label>
+    <input type="text" id="temp_name" name="temp_name">
+</div>
             
             <div class="form-group inline-group">
                 <label for="ticket_no">Ticket No.:</label>

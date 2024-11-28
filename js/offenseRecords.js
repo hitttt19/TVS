@@ -29,6 +29,9 @@ function editRecord(id, datetime, ticket_no, license_id, traffic_enforcer, statu
     document.getElementById('datetime').value = datetime;
     document.getElementById('ticket_no').value = ticket_no;
     document.getElementById('license_id').value = license_id;
+
+     // Hide the name field in the edit form
+     document.getElementById('temp_name').closest('.form-group').style.display = 'none';
     
     // Set the traffic enforcer dropdown
     const enforcerDropdown = document.getElementById('traffic_enforcer');

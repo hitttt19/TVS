@@ -141,3 +141,26 @@ CREATE TABLE login_attempts (
     attempt_time DATETIME NOT NULL,
     ip_address VARCHAR(45) NOT NULL
 );
+
+ALTER TABLE offense_records 
+ADD temp_name VARCHAR(255) DEFAULT NULL;
+
+ALTER TABLE offense_records 
+MODIFY license_id VARCHAR(50) DEFAULT NULL;
+
+SELECT 
+    o.datetime, 
+    o.ticket_no, 
+    o.license_id, 
+    COALESCE(CONCAT(d.firstname, ' ', d.lastname), o.temp_name) AS driver_name, 
+    o.offense_name, 
+    o.offense_rate, 
+    o.traffic_enforcer, 
+    o.status 
+FROM offense_records o
+LEFT JOIN drivers d ON o.license_id = d.license_id;
+
+UPDATE offense_records 
+SET license_id = :license_id, temp_name = NULL 
+WHERE temp_name = :temp_name;
+

@@ -148,8 +148,7 @@ $stmt = $pdo->prepare("SELECT * FROM drivers WHERE license_id = ?");
 $stmt->execute([$license_id]);
 $driver = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Photo verification status
-$id_photo_status = $driver['id_photo_status'] ?? 'pending'; // default to pending if no status
+
 ?>
 
 
@@ -288,17 +287,6 @@ $id_photo_status = $driver['id_photo_status'] ?? 'pending'; // default to pendin
                     <div class="profile-section">
                         <div class="profile-image">
                             <img src="<?php echo !empty($driver['photo']) ? (strpos($driver['photo'], '../') === 0 ? htmlspecialchars($driver['photo']) : '../' . htmlspecialchars($driver['photo'])) : '../icons/default.jpg'; ?>" alt="Driver's Photo" class="profile-photo" />
-                        </div>
-
-                        <!-- Display ID Photo Status -->
-                        <div class="id-photo-status">
-                            <?php if ($id_photo_status === 'approved'): ?>
-                                <span class="verified-label">Verified</span>
-                            <?php elseif ($id_photo_status === 'rejected'): ?>
-                                <span class="not-verified-label">Not Verified</span>
-                            <?php else: ?>
-                                <span class="pending-label">Pending Verification</span>
-                            <?php endif; ?>
                         </div>
 
                         <div class="upload-section">

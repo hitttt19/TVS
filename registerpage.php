@@ -175,22 +175,6 @@ if ($currentSettings) {
             <span id="photo-name"></span> <!-- This will display the selected file name -->
           </label>
         </div>
-
-        <div class="form-group">
-          <label class="file-upload">
-            <i class="fas fa-upload"></i> Upload Front ID Photo
-            <input type="file" name="id_front" accept="image/*" required onchange="updateFileName(this, '#id-front-name')">
-            <span id="id-front-name"></span> <!-- This will display the selected file name -->
-          </label>
-        </div>
-
-        <div class="form-group">
-          <label class="file-upload">
-            <i class="fas fa-upload"></i> Upload Back ID Photo
-            <input type="file" name="id_back" accept="image/*" required onchange="updateFileName(this, '#id-back-name')">
-            <span id="id-back-name"></span> <!-- This will display the selected file name -->
-          </label>
-        </div>
         
         <button type="button" class="prev-btn">Previous</button>
         <button type="submit" class="register-btn">Register</button>

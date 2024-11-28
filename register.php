@@ -52,20 +52,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Handle ID front photo upload
-    $id_front_path = $id_back_path = $photo_path = null;
+    // Handle file upload (for ID front, ID back, and profile photo)
     $upload_dir = 'uploads/';
+
+    // Define allowed file types globally
+    $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+    $max_file_size = 10 * 1024 * 1024; // 10 MB
 
     // Create upload directory if not exists
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0755, true);
     }
 
+    // Initialize variables for file paths
+    $id_front_path = $id_back_path = $photo_path = null;
+
     // Upload ID front photo
     if (isset($_FILES['id_front']) && $_FILES['id_front']['error'] == UPLOAD_ERR_OK) {
         $id_front = $_FILES['id_front'];
-        $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-        $max_file_size = 10 * 1024 * 1024; // 10 MB
 
         if (!in_array($id_front['type'], $allowed_types)) {
             $_SESSION['message_error'] = "Invalid ID front photo format. Please upload a JPEG, PNG, or GIF.";
@@ -146,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     // Execute the query with the values
-    if ($stmt->execute([
+    if ($stmt->execute([ 
     $license_id, 
     $license_type, 
     $firstname, 
@@ -166,13 +170,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_back_path, 
     $photo_path
     ])) {
-    $_SESSION['message_success'] = "Registration successful!";
-    header("Location: landingpage.php"); // Redirect to success page
-    exit();
+        $_SESSION['message_success'] = "Registration successful!";
+        header("Location: landingpage.php"); // Redirect to success page
+        exit();
     } else {
-    $_SESSION['message_error'] = "Registration failed. Please try again.";
-    header("Location: registerpage.php"); // Redirect back to register page with error message
-    exit();
+        $_SESSION['message_error'] = "Registration failed. Please try again.";
+        header("Location: registerpage.php"); // Redirect back to register page with error message
+        exit();
     }
 
 }
